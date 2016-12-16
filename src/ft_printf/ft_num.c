@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:16:53 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 18:27:02 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:57:08 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,11 @@ static void		ft_prec_num(t_arg *ele, t_out *tmp, t_out *flag)
 		ptr = ft_strndup(tmp->out + 1, len);
 		ft_free_out(tmp);
 		ft_fill_out(tmp, ptr, len);
-	//	ptr = tmp->out;
-	//	tmp->out = ft_strdup(tmp->out + 1);
-	//	tmp->len -= 1;
 		free(ptr);
 		ele->precision += 1;
 	}
 	ele->precision -= ele->len;
-	if (flag->out && ft_strcmp(flag->out, "0x") != 0 &&
+	if (flag->len > 0 && ft_strcmp(flag->out, "0x") != 0 &&
 			ft_strcmp(flag->out, " ") != 0 && ft_strcmp(flag->out, "+") != 0)
 		ele->precision -= flag->len;
 	while (ele->precision > 0)

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:50:20 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 18:00:37 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 20:03:10 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@
 
 typedef struct				s_outp
 {
-	char					out[BUFFSIZE];
-	int						stocked;
-	char					*stock;
 	int						len;
+	int						stocked;
+	char					out[BUFFSIZE];
+	char					*stock;
 }							t_outp;
 
 typedef struct				s_out
 {
 	int						len;
+	int						stocked;
 	char					out1[BUFFSIZE];
 	char					*out;
-	int						stocked;
 }							t_out;
 
 typedef struct				s_col

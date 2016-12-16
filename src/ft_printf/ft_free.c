@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 15:37:37 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 16:55:16 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:32:39 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ft_free_out(t_out *out)
 	if (out->stocked)
 	{
 		free(out->out);
-		out->out = NULL;
+		out->out = out->out1;
 	}
+	out->stocked = 0;
 	out->len = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:32:31 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 19:14:51 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 20:01:01 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_fill_outp(t_outp *out, const char *s, int len)
 	if (len > 0 && s)
 	{
 		if (out->len + len <= BUFFSIZE)
-			ft_memcpy(out->out + ((out->len > 0) ? out->len : 0), s, len);
+			ft_memcpy(out->out + out->len, s, len);
 		else
 		{
 			out->stocked = 1;
@@ -43,7 +43,6 @@ void	ft_fill_out(t_out *out, const char *format, int len)
 			ft_memcpy(out->out + out->len, format, len);
 		else
 		{
-			out->stocked = 1;
 			if (out->stocked)
 			{
 				if (!(out->out = ft_realloc(out->out, 1 + len + out->len)))
@@ -56,6 +55,7 @@ void	ft_fill_out(t_out *out, const char *format, int len)
 				out->out = ft_memcpy(out->out, out->out1, out->len);
 			}
 			ft_memcpy(out->out + out->len, format, len);
+			out->stocked = 1;
 		}
 	}
 	out->len += len;
@@ -76,16 +76,10 @@ void	ft_join_before(t_out *out, const char *s, int len)
 				exit(EXIT_FAILURE);
 			new_str = ft_memcpy(new_str, s, len);
 			ft_memcpy(new_str + len, out->out, out->len);
-			if (out->len <= BUFFSIZE)
-				ft_memcpy(out->out, new_str, out->len + len);
-			else
-			{
-				nlen = out->len;
-				free(out->out);
-				out->out = ft_strndup(new_str, nlen + len);
-			}
+			nlen = out->len + len;
+			ft_free_out(out);
+			ft_fill_out(out, new_str, nlen);
 			free(new_str);
 		}
 	}
-	out->len += len;
 }
