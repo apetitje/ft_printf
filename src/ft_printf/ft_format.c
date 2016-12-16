@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 13:06:08 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 15:16:51 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void		ft_format_u(va_list ap, t_arg *ele)
 			ele->format = 'u';
 		}
 	}
-	if (ele->type == 'f' || ele->type == 'F')
+	else if (ele->type == 'f' || ele->type == 'F')
 		ele->data.f = va_arg(ap, double);
-	if (ele->type == 'O' || ele->type == 'U')
+	else if (ele->type == 'O' || ele->type == 'U')
 	{
 		ele->data.lu = va_arg(ap, unsigned long int);
 		ele->format = 'U';
@@ -46,16 +46,18 @@ static void		ft_format_alpha(va_list ap, t_arg *ele)
 		ele->data.c = (char)va_arg(ap, int);
 		ele->format = 'c';
 	}
-	if (ele->type == 'C')
+	else if (ele->type == 'C')
 		ele->data.lc = (wchar_t)va_arg(ap, wint_t);
-	if (ele->type == 'p' || ele->type == 's' || ele->type == 'S')
+	else if (ele->type == 'p' || ele->type == 's' || ele->type == 'S')
+	{
 		ele->format = 'p';
-	if (ele->type == 's')
-		ele->data.p = va_arg(ap, char *);
-	if (ele->type == 'S')
-		ele->data.p = va_arg(ap, wchar_t *);
-	if (ele->type == 'p')
-		ele->data.p = va_arg(ap, void *);
+		if (ele->type == 's')
+			ele->data.p = va_arg(ap, char *);
+		else if (ele->type == 'S')
+			ele->data.p = va_arg(ap, wchar_t *);
+		else if (ele->type == 'p')
+			ele->data.p = va_arg(ap, void *);
+	}
 }
 
 static void		ft_format(t_arg *ele, va_list ap)
@@ -67,17 +69,17 @@ static void		ft_format(t_arg *ele, va_list ap)
 			ele->data.d = (short)ele->data.d;
 		ele->format = 'd';
 	}
-	if (ele->type == 'z')
+	else if (ele->type == 'z')
 	{
 		ele->data.d = (signed char)va_arg(ap, int);
 		ele->format = 'd';
 	}
-	if (ele->type == 'D')
+	else if (ele->type == 'D')
 	{
 		ele->data.ld = va_arg(ap, long int);
 		ele->format = 'D';
 	}
-	if (ele->type == 'L')
+	else if (ele->type == 'L')
 	{
 		ele->data.ll = (long long int)va_arg(ap, long int);
 		ele->format = 'L';
@@ -117,22 +119,19 @@ void			ft_process_format(t_outp *output, t_arg *ele)
 
 t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
 {
-	int		len;
 	t_arg	*ele;
 	char	flag[200];
 	char	modifier;
 
-	len = 0;
 	modifier = 0;
 	ft_bzero(flag, 200);
-	while (*(*str + len) && *(*str + len) != '%')
+	while (**str && **str != '%')
 	{
-		if (*(*str + len) == '{')
-			ft_color(out, str, &len);
-		len++;
+		if (**str == '{')
+			ft_color(out, str);
+		ft_fill_outp(out, *str, 1);
+		*str += 1;
 	}
-	ft_fill_outp(out, *str, len);
-	*str = *str + len;
 	if (**str != '\0')
 		ft_find_modif(str, flag, &modifier);
 	ele = ft_arg(**str, flag, modifier);

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 12:18:32 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 13:06:18 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 14:53:16 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		ft_modifier(t_arg *ele)
 	ft_num_modif(ele);
 }
 
-void		ft_color(t_outp *out, const char **str, int *len)
+void		ft_color(t_outp *out, const char **str)
 {
 	int i;
 	int	is_col;
@@ -100,9 +100,8 @@ void		ft_color(t_outp *out, const char **str, int *len)
 	is_col = 0;
 	while (++i < 8)
 	{
-		if (!ft_strncmp(*str + *len, g_coltab[i].str, g_coltab[i].len))
+		if (!ft_strncmp(*str, g_coltab[i].str, g_coltab[i].len))
 		{
-			ft_fill_outp(out, *str, *len);
 			ft_fill_outp(out, g_coltab[i].code, g_coltab[i].codelen);
 			is_col = 1;
 			break ;
@@ -110,10 +109,8 @@ void		ft_color(t_outp *out, const char **str, int *len)
 	}
 	if (is_col)
 	{
-		while (*(*str + *len) != '}')
-			*len += 1;
-		*len += 1;
-		*str = *str + *len;
-		*len = -1;
+		while (**str != '}')
+			*str += 1;
+		*str += 1;
 	}
 }

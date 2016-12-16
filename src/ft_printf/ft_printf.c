@@ -6,12 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 13:16:46 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 15:18:02 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 
 static void		ft_init_arg(t_arg *new_ele)
 {
@@ -45,7 +44,7 @@ static int		ft_end(t_outp *out, t_arg **ele, va_list ap)
 	else
 		write(1, out->stock, out->len);
 	ft_free_ele(ele);
-//	ft_free_outp(out);
+	ft_free_outp(out);
 	va_end(ap);
 	return (out->len);
 }

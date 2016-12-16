@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:50:20 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 13:18:34 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 16:33:11 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 ** f = double;
 */
 
-# define BUFFSIZE			127
+# define BUFFSIZE			1024
 
 typedef struct				s_outp
 {
@@ -100,7 +100,7 @@ typedef	struct				s_arg
 	int						padleft;
 }							t_arg;
 
-void						ft_fill_outp(t_outp *output, const char *s, int len);
+void						ft_fill_outp(t_outp *out, const char *s, int len);
 void						ft_free_outp(t_outp *out);
 void						ft_init_outp(t_outp *out);
 int							ft_asprintf(char **strp, const char *format, ...);
@@ -131,6 +131,6 @@ t_arg						*ft_arg(char type, char flag[200], char modifier);
 int							ft_init_base(char type);
 t_arg						*ft_print(t_outp *out, const char **str, va_list ap);
 int							ft_find_pad(t_arg *ele, int i, va_list ap);
-void						ft_color(t_outp *out, const char **str, int *len);
+void						ft_color(t_outp *out, const char **str);
 
 #endif
