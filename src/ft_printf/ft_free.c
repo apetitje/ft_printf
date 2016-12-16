@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 15:37:37 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 16:02:44 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 16:55:16 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,19 @@ void	ft_free_outp(t_outp *out)
 
 void	ft_init_out(t_out *out)
 {
-	out->out = NULL;
+	out->out = out->out1;
+	out->stocked = 0;
+	ft_bzero(out->out1, BUFFSIZE);
 	out->len = 0;
 }
 
 void	ft_free_out(t_out *out)
 {
-	if (out && out->out)
+	ft_bzero(out->out1, BUFFSIZE);
+	if (out->stocked)
 	{
 		free(out->out);
 		out->out = NULL;
-		out->len = 0;
 	}
+	out->len = 0;
 }

@@ -6,7 +6,7 @@
 #    By: apetitje <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 22:21:20 by apetitje          #+#    #+#              #
-#    Updated: 2016/12/16 16:12:51 by apetitje         ###   ########.fr        #
+#    Updated: 2016/12/16 18:00:06 by apetitje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,16 +19,23 @@ SRC = ft_free.c ft_wide.c ft_asprintf.c ft_pad.c ft_func.c ft_format.c ft_modifi
 
 BINARY = $(SRC:.c=.o)
 
+DEPEND = $(SRC:.c=.d)
+
 all : $(NAME)
 
 $(NAME) : $(BINARY)
 	ar r $@ $^
 	ranlib $(NAME)
 
+%.o:%.c
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
+
 clean :
-	/bin/rm -f $(BINARY)
+	/bin/rm -f $(BINARY) $(DEPEND)
 
 fclean : clean
 	/bin/rm -f $(NAME)
 
 re : fclean all
+
+-include $(BINARY:.o=.d)

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:38:24 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 13:07:48 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:01:34 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void			ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele)
 
 	c[1] = '\0';
 	c[0] = ele->type;
+	//ele->type = 0;
 	if (ele->pad != 0)
 	{
 		if (ele->pad > 0)
@@ -51,11 +52,8 @@ static void		ft_point_b(t_outp *output, t_arg *ele, t_out *tmp, t_out *flag)
 	if (ele->precision != -1)
 	{
 		ele->precision -= ele->len;
-		while (ele->precision > 0)
-		{
+		while (--ele->precision >= 0)
 			ft_fill_out(&prec, "0", 1);
-			ele->precision--;
-		}
 		ft_join_before(tmp, prec.out, prec.len);
 	}
 	if (ele->pad != 0)
@@ -73,11 +71,12 @@ void			ft_point(unsigned long int nb, t_outp *output, t_out *tmp,
 					t_arg *ele)
 {
 	t_out		flag;
+	char		*str;
 
 	ft_init_out(&flag);
 	ft_fill_out(&flag, "0x", 2);
-	tmp->out = ft_itoa_base(nb, 16, 'x', &(ele->len));
-	tmp->len += ele->len;
+	str = ft_itoa_base(nb, 16, 'x', &(ele->len));
+	ft_fill_out(tmp, str, ele->len);
 	if (*(tmp->out) == '0')
 		ele->zero = 1;
 	if (ele->precision == -1)
@@ -87,6 +86,7 @@ void			ft_point(unsigned long int nb, t_outp *output, t_out *tmp,
 			ft_free_out(tmp);
 	}
 	ft_point_b(output, ele, tmp, &flag);
+	free(str);
 	ft_free_out(&flag);
 }
 

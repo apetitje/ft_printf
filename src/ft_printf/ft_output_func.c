@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:32:31 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 16:30:32 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:14:51 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,57 @@ void	ft_fill_outp(t_outp *out, const char *s, int len)
 	out->len += len;
 }
 
-void	ft_fill_out(t_out *output, const char *format, int len)
+void	ft_fill_out(t_out *out, const char *format, int len)
 {
 	if (len > 0 && format)
 	{
-		if (output->out)
-		{
-			if (!(output->out = ft_realloc(output->out, 1 + len + output->len)))
-				exit(EXIT_FAILURE);
-			ft_memcpy(output->out + output->len, format, len);
-		}
+		if (out->len + len <= BUFFSIZE)
+			ft_memcpy(out->out + out->len, format, len);
 		else
 		{
-			if (!(output->out = ft_memalloc(len + 1)))
-				exit(EXIT_FAILURE);
-			output->out = ft_memcpy(output->out, format, len);
+			out->stocked = 1;
+			if (out->stocked)
+			{
+				if (!(out->out = ft_realloc(out->out, 1 + len + out->len)))
+					exit(EXIT_FAILURE);
+			}
+			else
+			{
+				if (!(out->out = ft_memalloc(out->len + len + 1)))
+					exit(EXIT_FAILURE);
+				out->out = ft_memcpy(out->out, out->out1, out->len);
+			}
+			ft_memcpy(out->out + out->len, format, len);
 		}
 	}
-	output->len += len;
+	out->len += len;
 }
 
 void	ft_join_before(t_out *out, const char *s, int len)
 {
 	char	*new_str;
+	int		nlen;
 
-	if (!s)
-		return ;
-	else if (!out->out)
-		out->out = ft_strdup(s);
-	else
+	if (len > 0)
 	{
-		if (!(new_str = ft_memalloc(out->len + len + 1)))
-			exit(EXIT_FAILURE);
-		new_str = ft_memcpy(new_str, s, len);
-		ft_memcpy(new_str + len, out->out, out->len);
-		free(out->out);
-		out->out = new_str;
+		if (!s)
+			return ;
+		else
+		{
+			if (!(new_str = ft_memalloc(out->len + len + 1)))
+				exit(EXIT_FAILURE);
+			new_str = ft_memcpy(new_str, s, len);
+			ft_memcpy(new_str + len, out->out, out->len);
+			if (out->len <= BUFFSIZE)
+				ft_memcpy(out->out, new_str, out->len + len);
+			else
+			{
+				nlen = out->len;
+				free(out->out);
+				out->out = ft_strndup(new_str, nlen + len);
+			}
+			free(new_str);
+		}
 	}
 	out->len += len;
 }
