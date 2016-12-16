@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 11:20:42 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 13:06:08 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void		ft_format(t_arg *ele, va_list ap)
 	ft_format_alpha(ap, ele);
 }
 
-void			ft_process_format(t_outp **output, t_arg *ele)
+void			ft_process_format(t_outp *output, t_arg *ele)
 {
 	unsigned long int	nb;
 	int					base;
@@ -115,7 +115,7 @@ void			ft_process_format(t_outp **output, t_arg *ele)
 	ft_free_out(&tmp);
 }
 
-t_arg			*ft_print(t_outp **out, const char **str, va_list ap)
+t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
 {
 	int		len;
 	t_arg	*ele;
@@ -138,7 +138,7 @@ t_arg			*ft_print(t_outp **out, const char **str, va_list ap)
 	ele = ft_arg(**str, flag, modifier);
 	ft_flags_all(ele, ap);
 	if (ele->type == 'n')
-		*(va_arg(ap, int *)) = (*out)->len;
+		*(va_arg(ap, int *)) = out->len;
 	else
 		ft_format(ele, ap);
 	return (ele);

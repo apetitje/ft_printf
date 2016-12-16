@@ -1,0 +1,330 @@
+ft_alpha.c:	s = ele->data.p;
+ft_alpha.c:	if (ele->type == 'c')
+ft_alpha.c:		ft_fill_out(tmp, &(ele->data.c), 1);
+ft_alpha.c:	else if (ele->type == 's' && ele->precision != -1)
+ft_alpha.c:			ele->len = ft_strlen(s);
+ft_alpha.c:			if (ele->len > ele->precision && ele->precision > 0)
+ft_alpha.c:				ele->len = ele->precision;
+ft_alpha.c:			ft_fill_out(tmp, s, ele->len);
+ft_alpha.c:	if (ele->pad != 0)
+ft_alpha.c:	if (tmp->out)
+ft_alpha.c:		ft_fill_outp(output, tmp->out, tmp->len);
+ft_asprintf.c:		str_ptr = ft_memcpy(str, out->out, out->len);
+ft_asprintf.c:		len += out->len;
+ft_asprintf.c:		out = out->next;
+ft_asprintf.c:		if (ele->type == '\0')
+ft_flags.c:	if (ft_isdigit(ele->flag[i + 1]))
+ft_flags.c:		ele->precision = ft_atoi(ele->flag + i + 1);
+ft_flags.c:		if (ele->precision == 0)
+ft_flags.c:			ele->precision = -1;
+ft_flags.c:		while (ele->flag[i] && ft_isdigit(ele->flag[i]))
+ft_flags.c:		i--;
+ft_flags.c:	else if (ele->flag[i + 1] == '*')
+ft_flags.c:		ele->precision = va_arg(ap, int);
+ft_flags.c:		if (ele->precision == 0)
+ft_flags.c:			ele->precision = -1;
+ft_flags.c:		ele->precision = -1;
+ft_flags.c:	i = -1;
+ft_flags.c:	if (ele->type == '\0')
+ft_flags.c:	while (ele->flag[++i])
+ft_flags.c:		if (ele->flag[i] == '0' && (i == 0 || ft_isdigit(ele->flag[i - 1]) == 0)
+ft_flags.c:			&& (((ft_strchr("scSC%Z", ele->type) || !ft_strchr(ele->flag, '.'))
+ft_flags.c:				&& (!ft_strchr(ele->flag, '-'))) || (ft_strchr(ele->flag, '.')
+ft_flags.c:					&& ft_strchr(ele->flag, '*'))))
+ft_flags.c:			ele->padchar = '0';
+ft_flags.c:		if ((i == 0 || ele->flag[i - 1] != '.') && (ele->flag[i] == '-'
+ft_flags.c:					|| ft_isdigit(ele->flag[i]) || ele->flag[i] == '*')
+ft_flags.c:					&& ele->flag[i] != '0')
+ft_flags.c:		if (ele->flag[i] == '.' && ele->flag + i + 1)
+ft_flags.c:	if (ele->flag[i] == '+' && !*is_plus
+ft_flags.c:			&& (((ele->type == 'i' || ele->type == 'd') && ele->data.d >= 0)
+ft_flags.c:				|| (ele->type == 'D' && ele->data.ld >= 0)
+ft_flags.c:				|| (ele->type == 'f' && ele->data.f >= 0.0)))
+ft_flags.c:	if (ele->flag[i] == ' ' && !(ft_strchr(ele->flag, '+'))
+ft_flags.c:			&& (((ele->type == 'i' || ele->type == 'd') && ele->data.d >= 0)
+ft_flags.c:				|| (ele->type == 'D' && ele->data.ld >= 0)
+ft_flags.c:				|| (ele->type == 'f' && ele->data.f >= 0.0)))
+ft_flags.c:	while (ele->flag[i])
+ft_flags.c:		if (ele->flag[i] == '#' && ((ele->type == 'o') || ele->type == 'O'
+ft_flags.c:				|| (ele->format == 'u' && ele->data.u > 0)
+ft_flags.c:				|| (ele->format == 'U' && ele->data.lu > 0)
+ft_flags.c:				|| (ele->format == 'K' && ele->data.llu > 0)))
+ft_flags.c:			if (ele->type != 'o' && ele->type != 'O')
+ft_flags.c:				ft_fill_out(&str, &ele->type, 1);
+ft_format.c:	if (ft_strchr("uoxXb", ele->type))
+ft_format.c:		if (ele->format == 'U')
+ft_format.c:			ele->data.lu = va_arg(ap, unsigned long int);
+ft_format.c:		else if (ele->format == 'K')
+ft_format.c:			ele->data.llu = va_arg(ap, unsigned long long int);
+ft_format.c:		else if (ele->format == 'w')
+ft_format.c:			ele->data.uc = (unsigned char)va_arg(ap, int);
+ft_format.c:			ele->data.u = va_arg(ap, unsigned int);
+ft_format.c:			if (ele->format == 'y')
+ft_format.c:				ele->data.u = (unsigned short)ele->data.u;
+ft_format.c:			ele->format = 'u';
+ft_format.c:	if (ele->type == 'f' || ele->type == 'F')
+ft_format.c:		ele->data.f = va_arg(ap, double);
+ft_format.c:	if (ele->type == 'O' || ele->type == 'U')
+ft_format.c:		ele->data.lu = va_arg(ap, unsigned long int);
+ft_format.c:		ele->format = 'U';
+ft_format.c:	if (ele->type == 'c')
+ft_format.c:		ele->data.c = (char)va_arg(ap, int);
+ft_format.c:		ele->format = 'c';
+ft_format.c:	if (ele->type == 'C')
+ft_format.c:		ele->data.lc = (wchar_t)va_arg(ap, wint_t);
+ft_format.c:	if (ele->type == 'p' || ele->type == 's' || ele->type == 'S')
+ft_format.c:		ele->format = 'p';
+ft_format.c:	if (ele->type == 's')
+ft_format.c:		ele->data.p = va_arg(ap, char *);
+ft_format.c:	if (ele->type == 'S')
+ft_format.c:		ele->data.p = va_arg(ap, wchar_t *);
+ft_format.c:	if (ele->type == 'p')
+ft_format.c:		ele->data.p = va_arg(ap, void *);
+ft_format.c:	if (ele->type == 'd' || ele->type == 'i')
+ft_format.c:		ele->data.d = va_arg(ap, int);
+ft_format.c:		if (ele->format == 'h')
+ft_format.c:			ele->data.d = (short)ele->data.d;
+ft_format.c:		ele->format = 'd';
+ft_format.c:	if (ele->type == 'z')
+ft_format.c:		ele->data.d = (signed char)va_arg(ap, int);
+ft_format.c:		ele->format = 'd';
+ft_format.c:	if (ele->type == 'D')
+ft_format.c:		ele->data.ld = va_arg(ap, long int);
+ft_format.c:		ele->format = 'D';
+ft_format.c:	if (ele->type == 'L')
+ft_format.c:		ele->data.ll = (long long int)va_arg(ap, long int);
+ft_format.c:		ele->format = 'L';
+ft_format.c:	base = ft_init_base(ele->type);
+ft_format.c:	if (ele->type == 'p')
+ft_format.c:		nb = (unsigned long int)(ele->data.p);
+ft_format.c:	if (ele->type == 'C')
+ft_format.c:		ele->len = 1;
+ft_format.c:	if (ft_strchr("hydDuULwK", ele->format))
+ft_format.c:	else if (ele->type == 'f' || ele->type == 'F')
+ft_format.c:	else if (ele->format == 'c' || ele->type == 's')
+ft_format.c:	else if (ele->type == 'C' || ele->type == 'S')
+ft_format.c:	else if (ele->type == 'p')
+ft_format.c:	else if (ele->type == '%')
+ft_format.c:	if (ele->type == 'n')
+ft_format.c:		*(va_arg(ap, int *)) = (*out)->len;
+ft_func.c:	c[0] = ele->type;
+ft_func.c:	if (ele->pad != 0)
+ft_func.c:		if (ele->pad > 0)
+ft_func.c:			ele->pad -= 1;
+ft_func.c:			ele->pad += 1;
+ft_func.c:	if (tmp->out)
+ft_func.c:		ft_fill_outp(output, tmp->out, tmp->len);
+ft_func.c:	if (ele->precision != -1)
+ft_func.c:		ele->precision -= ele->len;
+ft_func.c:		while (ele->precision > 0)
+ft_func.c:			ele->precision--;
+ft_func.c:	if (ele->pad != 0)
+ft_func.c:		ele->pad += (ele->pad > 0) ? -(flag->len) : flag->len;
+ft_func.c:		ft_pad(tmp, flag->out, ele);
+ft_func.c:		ft_fill_outp(output, flag->out, flag->len);
+ft_func.c:	ft_fill_outp(output, tmp->out, tmp->len);
+ft_func.c:	tmp->out = ft_itoa_base(nb, 16, 'x', &(ele->len));
+ft_func.c:	tmp->len += ele->len;
+ft_func.c:	if (*(tmp->out) == '0')
+ft_func.c:		ele->zero = 1;
+ft_func.c:	if (ele->precision == -1)
+ft_func.c:		ele->padchar = ' ';
+ft_func.c:		if (ele->zero)
+ft_func.c:	if (ele->pad != 0)
+ft_func.c:	ft_fill_outp(output, tmp->out, tmp->len);
+ft_modifier.c:				&& (ft_strchr(" *lzjh.+-#", **str) || ft_isdigit(**str))))
+ft_modifier.c:	if (ele->modifier == 'z')
+ft_modifier.c:		if (ele->type == 'd' || ele->type == 'i')
+ft_modifier.c:			ele->type = 'L';
+ft_modifier.c:		else if (ft_strchr("uoxXb", ele->type))
+ft_modifier.c:			ele->format = 'U';
+ft_modifier.c:	else if (ele->modifier == 'H')
+ft_modifier.c:		if (ele->type == 'd' || ele->type == 'i')
+ft_modifier.c:			ele->type = 'z';
+ft_modifier.c:		else if (ft_strchr("uoxXb", ele->type))
+ft_modifier.c:			ele->format = 'w';
+ft_modifier.c:	else if (ele->modifier == 'h')
+ft_modifier.c:		if (ele->type == 'd' || ele->type == 'i')
+ft_modifier.c:			ele->format = 'h';
+ft_modifier.c:		else if (ft_strchr("uoxXb", ele->type))
+ft_modifier.c:			ele->format = 'y';
+ft_modifier.c:	if (ele->modifier == 'l')
+ft_modifier.c:		if (ele->type == 'd' || ele->type == 'i')
+ft_modifier.c:			ele->type = 'D';
+ft_modifier.c:		else if (ft_strchr("uoxXb", ele->type))
+ft_modifier.c:			ele->format = 'U';
+ft_modifier.c:		else if (ele->type == 's' || ele->type == 'c')
+ft_modifier.c:			ele->type = (ele->type == 's') ? 'S' : 'C';
+ft_modifier.c:			ele->format = (ele->type == 'C') ? 'C' : ele->format;
+ft_modifier.c:	else if (ele->modifier == 'L')
+ft_modifier.c:		if (ele->type == 'd' || ele->type == 'i')
+ft_modifier.c:			ele->type = 'L';
+ft_modifier.c:		else if (ft_strchr("uoxXb", ele->type))
+ft_modifier.c:			ele->format = 'K';
+ft_modifier.c:	else if (ele->modifier == 'j' && (ele->type == 'd' || ele->type == 'i'))
+ft_modifier.c:		ele->type = 'D';
+ft_modifier.c:	else if (ele->modifier == 'j' && ft_strchr("uoxXb", ele->type))
+ft_modifier.c:		ele->format = 'U';
+ft_modifier.c:	i = -1;
+ft_modifier.c:		*len = -1;
+ft_num.c:	if (tmp->out && *(tmp->out) == '-')
+ft_num.c:		ft_fill_out(&prec, "-", 1);
+ft_num.c:		ptr = tmp->out;
+ft_num.c:		tmp->out = ft_strdup(tmp->out + 1);
+ft_num.c:		tmp->len -= 1;
+ft_num.c:		ele->precision += 1;
+ft_num.c:	ele->precision -= ele->len;
+ft_num.c:	if (flag->out && ft_strcmp(flag->out, "0x") != 0 &&
+ft_num.c:			ft_strcmp(flag->out, " ") != 0 && ft_strcmp(flag->out, "+") != 0)
+ft_num.c:		ele->precision -= flag->len;
+ft_num.c:	while (ele->precision > 0)
+ft_num.c:		ele->precision--;
+ft_num.c:	if (ele->precision != -1)
+ft_num.c:	else if ((!flag->out) || (ele->type != 'o' && ele->type != 'O'))
+ft_num.c:		ele->padchar = ' ';
+ft_num.c:		if (ele->zero)
+ft_num.c:	if (ele->pad != 0)
+ft_num.c:		if (ele->pad > 0)
+ft_num.c:			ele->pad -= flag->len;
+ft_num.c:			ele->pad += flag->len;
+ft_num.c:	if (ele->zero && (flag->out && *(flag->out) != '+' && *(flag->out) != ' '))
+ft_num.c:	ft_pad(tmp, flag->out, ele);
+ft_num.c:	ft_fill_outp(out, tmp->out, tmp->len);
+ft_num.c:	if (!(ft_strchr(ele->flag, '#') && ele->precision == -1))
+ft_num.c:		tmp->out = ft_dtoa(ele->data.f, (ele->precision > 0
+ft_num.c:					|| ele->precision == -1) ? ele->precision : 6, &(ele->len));
+ft_num.c:		tmp->len += ele->len;
+ft_num.c:		tmp->out = ft_itoa((int)ele->data.f, &(ele->len));
+ft_num.c:		tmp->len += ele->len;
+ft_num.c:	if (ele->format == 'd')
+ft_num.c:		tmp->out = ft_itoa(ele->data.d, &(ele->len));
+ft_num.c:	if (ele->format == 'D')
+ft_num.c:		tmp->out = ft_itoa(ele->data.ld, &(ele->len));
+ft_num.c:	if (ele->format == 'U')
+ft_num.c:		tmp->out = ft_itoa_base(ele->data.lu, base,
+ft_num.c:					((base == 16) ? ele->type : 0), &(ele->len));
+ft_num.c:	if (ele->format == 'u')
+ft_num.c:		tmp->out = ft_itoa_base(ele->data.u, base,
+ft_num.c:					((base == 16) ? ele->type : 0), &(ele->len));
+ft_num.c:	if (ele->format == 'L')
+ft_num.c:		tmp->out = ft_itoa(ele->data.ll, &(ele->len));
+ft_num.c:	if (ele->format == 'w')
+ft_num.c:		tmp->out = ft_itoa_base(ele->data.uc, base, ele->type,
+ft_num.c:					&(ele->len));
+ft_num.c:	if (ele->format == 'K')
+ft_num.c:		tmp->out = ft_itoa_base(ele->data.llu, base, ele->type, &(ele->len));
+ft_num.c:	tmp->len += ele->len;
+ft_num.c:	ele->zero = (tmp->out && *(tmp->out) == '0') ? 1 : 0;
+ft_output_func.c:		if ((*arg)->flag)
+ft_output_func.c:			free((*arg)->flag);
+ft_output_func.c:			(*arg)->flag = NULL;
+ft_output_func.c:	if ((*out)->len + len > BUFFSIZE)
+ft_output_func.c:		ptr = (*out)->out + (*out)->len;
+ft_output_func.c:		l = BUFFSIZE - (*out)->len;
+ft_output_func.c:		len -= l;
+ft_output_func.c:		(*out)->len = BUFFSIZE;
+ft_output_func.c:		(*out)->next = new;
+ft_output_func.c:		*out = (*out)->next;
+ft_output_func.c:		ft_memcpy((*out)->out, s, BUFFSIZE);
+ft_output_func.c:		(*out)->len = BUFFSIZE;
+ft_output_func.c:		len -= BUFFSIZE;
+ft_output_func.c:		(*out)->next = new;
+ft_output_func.c:		*out = (*out)->next;
+ft_output_func.c:	ft_memcpy((*out)->out, s, len);
+ft_output_func.c:	(*out)->len = len;
+ft_output_func.c:	(*out)->next = new;
+ft_output_func.c:	*out = (*out)->next;
+ft_output_func.c:		if ((*output)->len > 0)
+ft_output_func.c:			if (!(new_str = ft_memalloc(1 + len + (*output)->len)))
+ft_output_func.c:			new_str = ft_memcpy(new_str, (*output)->out, (*output)->len);
+ft_output_func.c:			ptr = new_str + (*output)->len;
+ft_output_func.c:			ft_outcpy(output, new_str, len + (*output)->len);
+ft_output_func.c:		if (output->out)
+ft_output_func.c:			if (!(output->out = ft_realloc(output->out, 1 + len + output->len)))
+ft_output_func.c:			ptr = output->out + output->len;
+ft_output_func.c:			if (!(output->out = ft_memalloc(len + 1)))
+ft_output_func.c:			output->out = ft_memmove(output->out, format, len);
+ft_output_func.c:			ptr = output->out + len;
+ft_output_func.c:	output->len += len;
+ft_output_func.c:	else if (!out->out)
+ft_output_func.c:		out->out = ft_strdup(s);
+ft_output_func.c:		if (!(new_str = ft_memalloc(out->len + len + 1)))
+ft_output_func.c:		ptr = ft_memcpy(ptr, out->out, out->len);
+ft_output_func.c:		ptr += out->len;
+ft_output_func.c:		free(out->out);
+ft_output_func.c:		out->out = new_str;
+ft_output_func.c:	out->len += len;
+ft_output_func.c:	(*out)->next = NULL;
+ft_output_func.c:	ft_bzero((*out)->out, BUFFSIZE);
+ft_output_func.c:	(*out)->len = 0;
+ft_output_func.c:		if ((*out)->len > 0)
+ft_output_func.c:			ft_bzero((*out)->out, BUFFSIZE);
+ft_output_func.c:			(*out)->len = 0;
+ft_output_func.c:		*out = (*out)->next;
+ft_output_func.c:	out->out = NULL;
+ft_output_func.c:	out->len = 0;
+ft_output_func.c:	if (out && out->out)
+ft_output_func.c:		free(out->out);
+ft_output_func.c:		out->out = NULL;
+ft_output_func.c:		out->len = 0;
+ft_pad.c:	if (ele->flag[i] == '-')
+ft_pad.c:		ele->padleft = 1;
+ft_pad.c:		ele->pad = (ele->flag[i] == '*') ? va_arg(ap, int)
+ft_pad.c:			: ft_atoi(ele->flag + i);
+ft_pad.c:	if (ft_isdigit(ele->flag[i]))
+ft_pad.c:		while (ele->flag[i] && ft_isdigit(ele->flag[i]))
+ft_pad.c:		i--;
+ft_pad.c:	if ((ele->padchar == ' ' || ele->type == 'Z') && flag && *flag)
+ft_pad.c:	else if (output->out && ft_strchr("fFdDi", ele->type)
+ft_pad.c:			&& *(output->out) == '-' && ele->padchar == '0')
+ft_pad.c:		ft_join_before(pad, "-", 1);
+ft_pad.c:		ptr = output->out;
+ft_pad.c:		output->out = ft_strdup(output->out + 1);
+ft_pad.c:		output->len -= 1;
+ft_pad.c:	if (pad->out)
+ft_pad.c:		ft_join_before(output, pad->out, pad->len);
+ft_pad.c:	if (ele->padleft != 1)
+ft_pad.c:		ele->padleft = (ele->pad < 0) ? 1 : 0;
+ft_pad.c:	ele->pad = (ele->pad < 0) ? -(ele->pad) : ele->pad;
+ft_pad.c:	ele->pad = ele->pad - output->len;
+ft_pad.c:	if (ele->pad > 0)
+ft_pad.c:		if (!(pad.out = (char *)ft_memalloc(ele->pad + 1)))
+ft_pad.c:		pad.out = ft_memset(pad.out, ele->padchar, ele->pad);
+ft_pad.c:		pad.len = ele->pad;
+ft_pad.c:	if (ele->padleft == 1)
+ft_printf.c:	new_ele->zero = 0;
+ft_printf.c:	new_ele->precision = 0;
+ft_printf.c:	new_ele->padleft = 0;
+ft_printf.c:	new_ele->pad = 0;
+ft_printf.c:	new_ele->len = 0;
+ft_printf.c:	new_ele->padchar = ' ';
+ft_printf.c:	new_ele->type = type;
+ft_printf.c:	new_ele->modifier = modifier;
+ft_printf.c:	new_ele->format = type;
+ft_printf.c:	new_ele->flag = ft_strdup(flag);
+ft_printf.c:		if (!(str = ft_realloc(str, out->len + len + 1)))
+ft_printf.c:		str_ptr = ft_memcpy(str_ptr, out->out, out->len);
+ft_printf.c:		str[out->len + len] = '\0';
+ft_printf.c://		write(1, out->out, out->len);
+ft_printf.c:		len += out->len;
+ft_printf.c:		out = out->next;
+ft_printf.c:		if (ele->type == '\0')
+ft_printf.c:		if (ele->type != 'n')
+ft_wide.c:	size--;
+ft_wide.c:	decalage -= 6;
+ft_wide.c:		size--;
+ft_wide.c:		decalage -= 6;
+ft_wide.c:	if (ele->type == 'C' || (ele->type == 'S' && (ele->precision < 1
+ft_wide.c:					|| *put <= ele->precision)))
+ft_wide.c:		decalage = 6 * (size - 1);
+ft_wide.c:	ele->len -= 1;
+ft_wide.c:	if (ele->type == 'C')
+ft_wide.c:		ls = &(ele->data.lc);
+ft_wide.c:		ls = (wchar_t *)(ele->data.p);
+ft_wide.c:	if (ele->type == 'S')
+ft_wide.c:			ele->len = ft_wide_strlen(ls);
+ft_wide.c:	while (ele->len > 0 && (ele->type == 'C' || (ele->type == 'S'
+ft_wide.c:					&& (ele->precision < 1 || put < ele->precision))))
+ft_wide.c:	if (ele->type == 'S' && ele->precision == -1)
+ft_wide.c:	if (ele->pad != 0)
+ft_wide.c:	ft_fill_outp(output, tmp->out, tmp->len);

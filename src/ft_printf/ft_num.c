@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:16:53 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 11:51:23 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 13:06:45 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		ft_prec_num(t_arg *ele, t_out *tmp, t_out *flag)
 	ft_free_out(&prec);
 }
 
-static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_outp **out)
+static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_outp *out)
 {
 	if (ele->precision != -1)
 		ft_prec_num(ele, tmp, flag);
@@ -63,7 +63,7 @@ static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_outp **out)
 	ft_fill_outp(out, tmp->out, tmp->len);
 }
 
-void			ft_float(t_outp **output, t_out *tmp, t_arg *ele)
+void			ft_float(t_outp *output, t_out *tmp, t_arg *ele)
 {
 	t_out flag;
 
@@ -85,7 +85,7 @@ void			ft_float(t_outp **output, t_out *tmp, t_arg *ele)
 	ft_free_out(&flag);
 }
 
-void			ft_num(t_outp **output, t_out *tmp, t_arg *ele, int base)
+void			ft_num(t_outp *output, t_out *tmp, t_arg *ele, int base)
 {
 	t_out		flag;
 

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:50:20 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 10:19:43 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 13:18:34 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,20 @@
 ** f = double;
 */
 
-# define BUFFSIZE			20
+# define BUFFSIZE			127
 
 typedef struct				s_outp
 {
-	struct s_outp			*next;
 	char					out[BUFFSIZE];
+	int						stocked;
+	char					*stock;
 	int						len;
 }							t_outp;
 
 typedef struct				s_out
 {
-	char					*out;
 	int						len;
+	char					*out;
 }							t_out;
 
 typedef struct				s_col
@@ -99,21 +100,21 @@ typedef	struct				s_arg
 	int						padleft;
 }							t_arg;
 
-void						ft_fill_outp(t_outp **output, const char *s, int len);
-void						ft_free_outp(t_outp **out);
-void						ft_init_outp(t_outp **out);
+void						ft_fill_outp(t_outp *output, const char *s, int len);
+void						ft_free_outp(t_outp *out);
+void						ft_init_outp(t_outp *out);
 int							ft_asprintf(char **strp, const char *format, ...);
 void						ft_modifier(t_arg *ele);
 void						ft_pad(t_out *output, char *flag, t_arg *ele);
 void						ft_flags_all(t_arg *ele, va_list ap);
 void						ft_flags_num(t_out *output, t_arg *ele);
 int							ft_printf(const char *format, ...);
-void						ft_percent(t_outp **output, t_out *tmp, t_arg *ele);
-void						ft_alpha(t_outp **output, t_out *tmp, t_arg *ele);
-void						ft_num(t_outp **output, t_out *tmp, t_arg *ele,
+void						ft_percent(t_outp *output, t_out *tmp, t_arg *ele);
+void						ft_alpha(t_outp *output, t_out *tmp, t_arg *ele);
+void						ft_num(t_outp *output, t_out *tmp, t_arg *ele,
 								int base);
-void						ft_wide(t_outp **output, t_out *tmp, t_arg *ele);
-void						ft_point(unsigned long int nb, t_outp **output,
+void						ft_wide(t_outp *output, t_out *tmp, t_arg *ele);
+void						ft_point(unsigned long int nb, t_outp *output,
 								t_out *tmp, t_arg *ele);
 void						ft_fill_out(t_out *output,
 								const char *format, int len);
@@ -121,15 +122,15 @@ void						ft_init_out(t_out *out);
 void						ft_free_out(t_out *out);
 void						ft_join_before(t_out *out, const char *s, int len);
 void						ft_free_ele(t_arg **arg);
-void						ft_float(t_outp **output, t_out *tmp, t_arg *ele);
-void						ft_process_format(t_outp **output, t_arg *ele);
-void						ft_nonspec(t_outp **output, t_out *tmp, t_arg *ele);
+void						ft_float(t_outp *output, t_out *tmp, t_arg *ele);
+void						ft_process_format(t_outp *output, t_arg *ele);
+void						ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele);
 void						ft_find_modif(const char **str, char flag[200],
 								char *modif);
 t_arg						*ft_arg(char type, char flag[200], char modifier);
 int							ft_init_base(char type);
-t_arg						*ft_print(t_outp **out, const char **str, va_list ap);
+t_arg						*ft_print(t_outp *out, const char **str, va_list ap);
 int							ft_find_pad(t_arg *ele, int i, va_list ap);
-void						ft_color(t_outp **out, const char **str, int *len);
+void						ft_color(t_outp *out, const char **str, int *len);
 
 #endif

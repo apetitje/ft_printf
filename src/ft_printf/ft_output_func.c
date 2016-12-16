@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:32:31 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 11:20:26 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 13:20:00 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,67 +26,45 @@ void	ft_free_ele(t_arg **arg)
 	}
 }
 
-static t_outp	*ft_outcpy(t_outp **out, const char *s, int len)
-{
-	t_outp 	*new;
-	char	*ptr;
-	int		l;
-
-	if ((*out)->len + len > BUFFSIZE)
-	{
-		ptr = (*out)->out + (*out)->len;
-		l = BUFFSIZE - (*out)->len;
-		ptr = ft_memcpy(ptr, s, l);
-		s = s + l;
-		len -= l;
-		(*out)->len = BUFFSIZE;
-		ft_init_outp(&new);
-		(*out)->next = new;
-		*out = (*out)->next;
-	}
-	while (len > BUFFSIZE)
-	{
-		ft_memcpy((*out)->out, s, BUFFSIZE);
-		(*out)->len = BUFFSIZE;
-		len -= BUFFSIZE;
-		ft_init_outp(&new);
-		s = s + len;
-		(*out)->next = new;
-		*out = (*out)->next;
-	}
-	ft_memcpy((*out)->out, s, len);
-	(*out)->len = len;
-	ft_init_outp(&new);
-	(*out)->next = new;
-	*out = (*out)->next;
-	return (*out);
-}
-
-void		ft_fill_outp(t_outp **output, const char *s, int len)
+void		ft_fill_outp(t_outp *output, const char *s, int len)
 {
 	char	*ptr;
-	char	*new_str;
-
 
 	if (len > 0 && s)
 	{
-		if ((*output)->len > 0)
+		if (output->len + len <= BUFFSIZE)
 		{
-			if (!(new_str = ft_memalloc(1 + len + (*output)->len)))
-				exit(EXIT_FAILURE);
-			new_str = ft_memcpy(new_str, (*output)->out, (*output)->len);
-			ptr = new_str + (*output)->len;
-			ptr = ft_memmove(ptr, s, len);
-			ptr += len;
-			*ptr = '\0';
-			ft_outcpy(output, new_str, len + (*output)->len);
-			free(new_str);
+			if (output->len > 0)
+			{
+				ptr = output->out + output->len;
+				ptr = ft_memmove(ptr, s, len);
+				ptr += len;
+				*ptr = '\0';
+			}
+			else
+				ft_memcpy(output, s, len);
 		}
 		else
 		{
-			ft_outcpy(output, s, len);
+			output->stocked = 1;
+			if (output->stock)
+			{
+				if (!(output->stock = ft_realloc(output->stock, 1 + len + output->len)))
+					exit(EXIT_FAILURE);
+				ptr = output->stock + output->len;
+				ptr = ft_memmove(ptr, s, len);
+				ptr += len;
+				*ptr = '\0';
+			}
+			else
+			{
+				if (!(output->stock = ft_memalloc(len + 1)))
+					exit(EXIT_FAILURE);
+				output->stock = ft_memmove(output->stock, s, len);
+			}
 		}
 	}
+	output->len += len;
 }
 
 void	ft_fill_out(t_out *output, const char *format, int len)
@@ -109,8 +87,6 @@ void	ft_fill_out(t_out *output, const char *format, int len)
 			if (!(output->out = ft_memalloc(len + 1)))
 				exit(EXIT_FAILURE);
 			output->out = ft_memmove(output->out, format, len);
-			ptr = output->out + len;
-			*ptr = '\0';
 		}
 	}
 	output->len += len;
@@ -140,30 +116,22 @@ void	ft_join_before(t_out *out, const char *s, int len)
 	out->len += len;
 }
 
-void	ft_init_outp(t_outp **out)
+void	ft_init_outp(t_outp *out)
 {
-	if (!(*out = (t_outp *)malloc(sizeof(t_outp))))
-			exit(EXIT_FAILURE);
-	(*out)->next = NULL;
-	ft_bzero((*out)->out, BUFFSIZE);
-	(*out)->len = 0;
+	out->stocked = 0;
+	ft_bzero(out->out, BUFFSIZE);
+	out->len = 0;
 }
 
-void	ft_free_outp(t_outp **out)
+void	ft_free_outp(t_outp *out)
 {
-	t_outp *ptr;
-
-	while (*out != NULL)
+	if (out->len > 0)
 	{
-		if ((*out)->len > 0)
-		{
-			ft_bzero((*out)->out, BUFFSIZE);
-			(*out)->len = 0;
-		}
-		ptr = *out;
-		*out = (*out)->next;
-		free(ptr);
+		ft_bzero(out->out, BUFFSIZE);
+		out->len = 0;
 	}
+	if (out->stocked == 1)
+		free(out->stock);
 }
 
 void	ft_init_out(t_out *out)

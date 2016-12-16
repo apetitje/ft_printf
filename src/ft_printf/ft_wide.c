@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 12:01:56 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 11:20:34 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 13:07:14 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void		ft_print_wide(t_out *tmp, t_arg *ele, wchar_t **ls, int *put)
 	*ls += 1;
 }
 
-void			ft_wide(t_outp **output, t_out *tmp, t_arg *ele)
+void			ft_wide(t_outp *output, t_out *tmp, t_arg *ele)
 {
 	wchar_t		*ls;
 	int			size;

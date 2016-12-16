@@ -6,13 +6,13 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:49:48 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 10:06:59 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/16 13:06:53 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			ft_alpha(t_outp **output, t_out *tmp, t_arg *ele)
+void			ft_alpha(t_outp *output, t_out *tmp, t_arg *ele)
 {
 	char		*s;
 
@@ -33,6 +33,5 @@ void			ft_alpha(t_outp **output, t_out *tmp, t_arg *ele)
 	}
 	if (ele->pad != 0)
 		ft_pad(tmp, 0, ele);
-	if (tmp->out)
-		ft_fill_outp(output, tmp->out, tmp->len);
+	ft_fill_outp(output, tmp->out, tmp->len);
 }
