@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 15:03:57 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:48:48 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		ft_init_arg(t_arg *new_ele)
 	new_ele->padchar = ' ';
 }
 
-t_arg			*ft_arg(char type, char flag[200], char modifier)
+t_arg			*ft_arg(char type, char flag[200], char modifier, va_list ap)
 {
 	t_arg		*new_ele;
 
@@ -36,6 +36,7 @@ t_arg			*ft_arg(char type, char flag[200], char modifier)
 	new_ele->format = type;
 	new_ele->flag = ft_strdup(flag);
 	ft_modifier(new_ele);
+	ft_flags_all(new_ele, ap);
 	return (new_ele);
 }
 
@@ -67,7 +68,7 @@ int				ft_printf(const char *format, ...)
 			return (ft_end(&output, &ele, ap));
 		if (ele->type != 'n')
 			ft_process_format(&output, ele);
-		format++;
+		++format;
 		ft_free_ele(&ele);
 	}
 	va_end(ap);

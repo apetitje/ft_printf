@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:43:10 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 15:26:30 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:35:06 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int				ft_find_pad(t_arg *ele, int i, va_list ap)
 	if (ft_isdigit(ele->flag[i]))
 	{
 		while (ele->flag[i] && ft_isdigit(ele->flag[i]))
-			i++;
-		i--;
+			++i;
+		--i;
 	}
 	return (i);
 }

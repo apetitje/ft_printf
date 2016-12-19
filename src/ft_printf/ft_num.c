@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:16:53 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 19:57:08 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:34:18 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,17 @@ void			ft_float(t_outp *output, t_out *tmp, t_arg *ele)
 	free(str);
 	ft_make_num(ele, tmp, &flag, output);
 	ft_free_out(&flag);
+	ft_free_out(tmp);
 }
 
-void			ft_num(t_outp *output, t_out *tmp, t_arg *ele, int base)
+void			ft_num(t_outp *output, t_out *tmp, t_arg *ele)
 {
 	t_out		flag;
 	char		*str;
+	int			base;
+	char		*base_str;
 
+	base_str = ft_init_base(ele->type, &base);
 	str = NULL;
 	ft_init_out(&flag);
 	ft_flags_num(&flag, ele);
@@ -101,23 +105,22 @@ void			ft_num(t_outp *output, t_out *tmp, t_arg *ele, int base)
 		str = ft_itoa(ele->data.d, &(ele->len));
 	else if (ele->format == 'D')
 		str = ft_itoa(ele->data.ld, &(ele->len));
-	else if (ele->format == 'U')
-		str = ft_itoa_base(ele->data.lu, base,
-					((base == 16) ? ele->type : 0), &(ele->len));
-	else if (ele->format == 'u')
-		str = ft_itoa_base(ele->data.u, base,
-					((base == 16) ? ele->type : 0), &(ele->len));
 	else if (ele->format == 'L')
 		str = ft_itoa(ele->data.ll, &(ele->len));
+	else if (ele->format == 'U')
+		str = ft_itoa_base(ele->data.lu, base, base_str, &(ele->len));
+	else if (ele->format == 'u')
+		str = ft_itoa_base(ele->data.u, base, base_str, &(ele->len));
 	else if (ele->format == 'w')
-		str = ft_itoa_base(ele->data.uc, base, ele->type,
-					&(ele->len));
+		str = ft_itoa_base(ele->data.uc, base, base_str, &(ele->len));
 	else if (ele->format == 'K')
-		str = ft_itoa_base(ele->data.llu, base, ele->type, &(ele->len));
+		str = ft_itoa_base(ele->data.llu, base, base_str, &(ele->len));
 	ft_fill_out(tmp, str, ele->len);
 	ele->zero = (tmp->len > 0 && *(tmp->out) == '0') ? 1 : 0;
 	ft_make_num(ele, tmp, &flag, output);
 	if (str)
 		free(str);
+	free(base_str);
 	ft_free_out(&flag);
+	ft_free_out(tmp);
 }

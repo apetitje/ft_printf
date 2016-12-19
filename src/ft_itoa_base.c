@@ -6,74 +6,30 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 15:32:22 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/11 18:04:59 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:09:29 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
-static char		*ft_is_base(size_t base, char size)
-{
-	char			*base_str;
-	char			digit;
-	size_t			i;
-
-	digit = '0';
-	i = 0;
-	if (!(base_str = (char *)malloc(sizeof(char) * (base + 1))))
-		exit(EXIT_FAILURE);
-	while (i < base)
-	{
-		base_str[i] = digit;
-		i++;
-		digit++;
-		if (digit == ':')
-		{
-			if (size == 'x')
-				digit = 'a';
-			else if (size == 'X')
-				digit = 'A';
-		}
-	}
-	base_str[i] = '\0';
-	return (base_str);
-}
-
-static int		ft_find_range(unsigned long int nb, size_t base)
-{
-	int				range;
-
-	range = 0;
-	while (nb >= base)
-	{
-		nb = nb / base;
-		range++;
-	}
-	range++;
-	return (range);
-}
+#include "libft.h"
 
 char			*ft_itoa_base(unsigned long int nb, size_t base,
-		char size, int *range)
+		char *base_str, int *range)
 {
 	char			*number;
-	char			*base_str;
-	int				rangecpy;
+	char			num[100];
+	int				i;
 
-	base_str = ft_is_base(base, size);
-	*range = ft_find_range(nb, base);
-	rangecpy = *range;
-	if (!(number = (char *)malloc(sizeof(char) * (rangecpy + 1))))
-		exit(EXIT_FAILURE);
-	number[rangecpy] = '\0';
-	rangecpy--;
+	i = 98;
+	num[99] = '\0';
 	while (nb >= base)
 	{
-		number[rangecpy] = base_str[nb % base];
+		num[i] = base_str[nb % base];
 		nb = nb / base;
-		rangecpy--;
+		--i;
 	}
-	number[rangecpy] = base_str[nb];
-	free(base_str);
+	num[i] = base_str[nb];
+	*range = 98 - i + 1;
+	number = ft_strdup(num + i);
 	return (number);
 }

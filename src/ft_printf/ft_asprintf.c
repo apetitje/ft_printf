@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 15:14:56 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:35:15 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				ft_asprintf(char **strp, const char *format, ...)
 		if (ele->type == '\0')
 			return (ft_end(strp, &output, &ele, ap));
 		ft_process_format(&output, ele);
-		format++;
+		++format;
 		ft_free_ele(&ele);
 	}
 	va_end(ap);

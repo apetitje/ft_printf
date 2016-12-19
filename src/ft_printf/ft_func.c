@@ -6,24 +6,40 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:38:24 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 19:01:34 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:28:50 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int				ft_init_base(char type)
+char			*ft_init_base(char type, int *base)
 {
-	int					base;
+	char	*base_str;
 
-	base = 10;
 	if (type == 'x' || type == 'X')
-		base = 16;
+	{
+		if (type == 'x')
+			base_str = ft_strdup("0123456789abcdef");
+		else
+			base_str = ft_strdup("0123456789ABCDEF");
+		*base = 16;
+	}
 	else if (type == 'o' || type == 'O')
-		base = 8;
+	{
+		base_str = ft_strdup("01234567");
+		*base = 8;
+	}
 	else if (type == 'b')
-		base = 2;
-	return (base);
+	{
+		base_str = ft_strdup("01");
+		*base = 2;
+	}
+	else
+	{
+		base_str = ft_strdup("0123456789");
+		*base = 10;
+	}
+	return (base_str);
 }
 
 void			ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele)
@@ -32,7 +48,6 @@ void			ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele)
 
 	c[1] = '\0';
 	c[0] = ele->type;
-	//ele->type = 0;
 	if (ele->pad != 0)
 	{
 		if (ele->pad > 0)
@@ -42,6 +57,7 @@ void			ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele)
 	}
 	ft_pad(tmp, c, ele);
 	ft_fill_outp(output, tmp->out, tmp->len);
+	ft_free_out(tmp);
 }
 
 static void		ft_point_b(t_outp *output, t_arg *ele, t_out *tmp, t_out *flag)
@@ -75,7 +91,7 @@ void			ft_point(unsigned long int nb, t_outp *output, t_out *tmp,
 
 	ft_init_out(&flag);
 	ft_fill_out(&flag, "0x", 2);
-	str = ft_itoa_base(nb, 16, 'x', &(ele->len));
+	str = ft_itoa_base(nb, 16, "0123456789abcdef", &(ele->len));
 	ft_fill_out(tmp, str, ele->len);
 	if (*(tmp->out) == '0')
 		ele->zero = 1;
@@ -88,6 +104,7 @@ void			ft_point(unsigned long int nb, t_outp *output, t_out *tmp,
 	ft_point_b(output, ele, tmp, &flag);
 	free(str);
 	ft_free_out(&flag);
+	ft_free_out(tmp);
 }
 
 void			ft_percent(t_outp *output, t_out *tmp, t_arg *ele)
@@ -96,4 +113,5 @@ void			ft_percent(t_outp *output, t_out *tmp, t_arg *ele)
 	if (ele->pad != 0)
 		ft_pad(tmp, 0, ele);
 	ft_fill_outp(output, tmp->out, tmp->len);
+	ft_free_out(tmp);
 }

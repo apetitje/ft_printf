@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 15:27:19 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:42:14 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,8 @@ static void		ft_format(t_arg *ele, va_list ap)
 void			ft_process_format(t_outp *output, t_arg *ele)
 {
 	unsigned long int	nb;
-	int					base;
 	t_out				tmp;
 
-	base = ft_init_base(ele->type);
 	ft_init_out(&tmp);
 	if (ele->type == 'p')
 		nb = (unsigned long int)(ele->data.p);
@@ -111,10 +109,9 @@ void			ft_process_format(t_outp *output, t_arg *ele)
 	else if (ele->type == '%')
 		ft_percent(output, &tmp, ele);
 	else if (ft_strchr("hydDuULwK", ele->format))
-		ft_num(output, &tmp, ele, base);
+		ft_num(output, &tmp, ele);
 	else
 		ft_nonspec(output, &tmp, ele);
-	ft_free_out(&tmp);
 }
 
 t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
@@ -135,9 +132,8 @@ t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
 	}
 	if (**str != '\0')
 	{
-		if (!(ele = ft_find_modif(str, flag, &modifier)))
+		if (!(ele = ft_find_modif(str, flag, &modifier, ap)))
 			return (NULL);
-		ft_flags_all(ele, ap);
 		if (ele->type == 'n')
 			*(va_arg(ap, int *)) = out->len;
 		else

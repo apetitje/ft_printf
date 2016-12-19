@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 20:50:12 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/13 20:29:00 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 18:11:21 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static int		ft_precision(t_arg *ele, int i, va_list ap)
 		ele->precision = ft_atoi(ele->flag + i + 1);
 		if (ele->precision == 0)
 			ele->precision = -1;
-		i++;
+		++i;
 		while (ele->flag[i] && ft_isdigit(ele->flag[i]))
-			i++;
-		i--;
+			++i;
+		--i;
 	}
 	else if (ele->flag[i + 1] == '*')
 	{
@@ -49,9 +49,8 @@ void			ft_flags_all(t_arg *ele, va_list ap)
 				&& (!ft_strchr(ele->flag, '-'))) || (ft_strchr(ele->flag, '.')
 					&& ft_strchr(ele->flag, '*'))))
 			ele->padchar = '0';
-		if ((i == 0 || ele->flag[i - 1] != '.') && (ele->flag[i] == '-'
-					|| ft_isdigit(ele->flag[i]) || ele->flag[i] == '*')
-					&& ele->flag[i] != '0')
+		if ((ele->flag[i] == '-' || ft_isdigit(ele->flag[i]) || ele->flag[i] == '*')
+				&& ele->flag[i] != '0' && (i == 0 || ele->flag[i - 1] != '.'))
 			i = ft_find_pad(ele, i, ap);
 		if (ele->flag[i] == '.' && ele->flag + i + 1)
 			i = ft_precision(ele, i, ap);
@@ -96,7 +95,7 @@ void			ft_flags_num(t_out *output, t_arg *ele)
 				ft_fill_out(&str, &ele->type, 1);
 		}
 		ft_is_plus(&str, ele, i, &is_plus);
-		i++;
+		++i;
 	}
 	ft_fill_out(output, str.out, str.len);
 	ft_free_out(&str);

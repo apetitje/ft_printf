@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 12:18:32 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 15:29:06 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:42:36 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char		ft_find_type(const char **str, char flag[200], char *modif, int *i)
 	return (**str);
 }
 
-t_arg		*ft_find_modif(const char **str, char flag[200], char *modif)
+t_arg		*ft_find_modif(const char **str, char flag[200], char *modif, va_list ap)
 {
 	int		i;
 	char	type;
@@ -59,7 +59,7 @@ t_arg		*ft_find_modif(const char **str, char flag[200], char *modif)
 	*str += 1;
 	type = ft_find_type(str, flag, modif, &i);
 	flag[i] = '\0';
-	return (ft_arg(type, flag, *modif));
+	return (ft_arg(type, flag, *modif, ap));
 }
 
 static void	ft_num_modif(t_arg *ele)

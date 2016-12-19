@@ -6,7 +6,7 @@
 /*   By: apetitje <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 12:18:37 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/13 12:07:04 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:19:40 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char				*ft_strndup(const char *s1, size_t len);
 void				*ft_realloc(void *ptr, size_t size);
 int					ft_sqrt(int nb);
 void				ft_lstadd(t_list **alst, t_list *new);
-char				*ft_itoa_base(unsigned long int nb, size_t base, char size,
+char				*ft_itoa_base(unsigned long int nb, size_t base, char *base_str,
 						int *range);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));

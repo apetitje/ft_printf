@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:49:48 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 15:31:13 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 15:33:17 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void			ft_alpha(t_outp *output, t_out *tmp, t_arg *ele)
 	if (ele->pad != 0)
 		ft_pad(tmp, 0, ele);
 	ft_fill_outp(output, tmp->out, tmp->len);
+	ft_free_out(tmp);
 }

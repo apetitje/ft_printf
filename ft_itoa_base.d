@@ -1,1 +1,1 @@
-ft_itoa_base.o: src/ft_itoa_base.c
+ft_itoa_base.o: src/ft_itoa_base.c inc/libft.h
