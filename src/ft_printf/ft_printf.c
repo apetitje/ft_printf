@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 19:12:54 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 15:03:57 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_arg			*ft_arg(char type, char flag[200], char modifier)
 {
 	t_arg		*new_ele;
 
+	if (type == '\0')
+		return (NULL);
 	if (!(new_ele = malloc(sizeof(t_arg))))
 		exit(EXIT_FAILURE);
 	ft_init_arg(new_ele);
@@ -61,8 +63,7 @@ int				ft_printf(const char *format, ...)
 	va_start(ap, format);
 	while (*format || *format == '\0')
 	{
-		ele = ft_print(&output, &format, ap);
-		if (ele->type == '\0')
+		if ((ele = ft_print(&output, &format, ap)) == NULL)
 			return (ft_end(&output, &ele, ap));
 		if (ele->type != 'n')
 			ft_process_format(&output, ele);

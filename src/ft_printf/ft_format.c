@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 15:16:51 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 15:27:19 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 static void		ft_format_u(va_list ap, t_arg *ele)
 {
-	if (ft_strchr("uoxXb", ele->type))
+	if (ele->type == 'O' || ele->type == 'U')
+	{
+		ele->data.lu = va_arg(ap, unsigned long int);
+		ele->format = 'U';
+	}
+	else if (ele->type == 'f' || ele->type == 'F')
+		ele->data.f = va_arg(ap, double);
+	else if (ft_strchr("uoxXb", ele->type))
 	{
 		if (ele->format == 'U')
 			ele->data.lu = va_arg(ap, unsigned long int);
@@ -30,13 +37,6 @@ static void		ft_format_u(va_list ap, t_arg *ele)
 			ele->format = 'u';
 		}
 	}
-	else if (ele->type == 'f' || ele->type == 'F')
-		ele->data.f = va_arg(ap, double);
-	else if (ele->type == 'O' || ele->type == 'U')
-	{
-		ele->data.lu = va_arg(ap, unsigned long int);
-		ele->format = 'U';
-	}
 }
 
 static void		ft_format_alpha(va_list ap, t_arg *ele)
@@ -48,7 +48,7 @@ static void		ft_format_alpha(va_list ap, t_arg *ele)
 	}
 	else if (ele->type == 'C')
 		ele->data.lc = (wchar_t)va_arg(ap, wint_t);
-	else if (ele->type == 'p' || ele->type == 's' || ele->type == 'S')
+	else if (ele->type == 's' || ele->type == 'S' || ele->type == 'p')
 	{
 		ele->format = 'p';
 		if (ele->type == 's')
@@ -100,9 +100,7 @@ void			ft_process_format(t_outp *output, t_arg *ele)
 		nb = (unsigned long int)(ele->data.p);
 	if (ele->type == 'C')
 		ele->len = 1;
-	if (ft_strchr("hydDuULwK", ele->format))
-		ft_num(output, &tmp, ele, base);
-	else if (ele->type == 'f' || ele->type == 'F')
+	if (ele->type == 'f' || ele->type == 'F')
 		ft_float(output, &tmp, ele);
 	else if (ele->format == 'c' || ele->type == 's')
 		ft_alpha(output, &tmp, ele);
@@ -112,6 +110,8 @@ void			ft_process_format(t_outp *output, t_arg *ele)
 		ft_point(nb, output, &tmp, ele);
 	else if (ele->type == '%')
 		ft_percent(output, &tmp, ele);
+	else if (ft_strchr("hydDuULwK", ele->format))
+		ft_num(output, &tmp, ele, base);
 	else
 		ft_nonspec(output, &tmp, ele);
 	ft_free_out(&tmp);
@@ -123,6 +123,7 @@ t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
 	char	flag[200];
 	char	modifier;
 
+	ele = NULL;
 	modifier = 0;
 	ft_bzero(flag, 200);
 	while (**str && **str != '%')
@@ -133,12 +134,16 @@ t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
 		*str += 1;
 	}
 	if (**str != '\0')
-		ft_find_modif(str, flag, &modifier);
-	ele = ft_arg(**str, flag, modifier);
-	ft_flags_all(ele, ap);
-	if (ele->type == 'n')
-		*(va_arg(ap, int *)) = out->len;
+	{
+		if (!(ele = ft_find_modif(str, flag, &modifier)))
+			return (NULL);
+		ft_flags_all(ele, ap);
+		if (ele->type == 'n')
+			*(va_arg(ap, int *)) = out->len;
+		else
+			ft_format(ele, ap);
+		return (ele);
+	}
 	else
-		ft_format(ele, ap);
-	return (ele);
+		return (NULL);
 }

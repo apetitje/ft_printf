@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:50:20 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 20:03:10 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 11:51:16 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 ** f = double;
 */
 
-# define BUFFSIZE			1024
+# define BUFFSIZE			127
 
 typedef struct				s_outp
 {
@@ -127,7 +127,7 @@ void						ft_free_ele(t_arg **arg);
 void						ft_float(t_outp *output, t_out *tmp, t_arg *ele);
 void						ft_process_format(t_outp *output, t_arg *ele);
 void						ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele);
-void						ft_find_modif(const char **str, char flag[200],
+t_arg						*ft_find_modif(const char **str, char flag[200],
 								char *modif);
 t_arg						*ft_arg(char type, char flag[200], char modifier);
 int							ft_init_base(char type);

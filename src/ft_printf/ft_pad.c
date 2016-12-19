@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:43:10 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 19:56:31 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/19 15:26:30 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		ft_padright(t_arg *ele, char *flag, t_out *pad, t_out *output)
 		ft_fill_out(pad, flag, ft_strlen(flag));
 	else if (flag && *flag)
 		ft_join_before(pad, flag, ft_strlen(flag));
-	else if (output->len > 0 && ft_strchr("fFdDi", ele->type)
+	else if (output->len > 0 && ft_strchr("dDifF", ele->type)
 			&& *(output->out) == '-' && ele->padchar == '0')
 	{
 		ft_join_before(pad, "-", 1);
