@@ -6,24 +6,27 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 16:35:15 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:45:36 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		ft_end(char **strp, t_outp *out, t_arg **ele, va_list ap)
+static int		ft_end(char **strp, t_out *out, t_arg **ele, va_list ap)
 {
+	int		len;
+
+	len = out->len;
 	if (!(*strp = ft_memalloc(out->len + 1)))
 		exit(EXIT_FAILURE);
 	if (!out->stocked)
-		*strp = ft_memmove(*strp, out->out, out->len);
+		*strp = ft_memmove(*strp, out->out1, out->len);
 	else
-		*strp = ft_memmove(*strp, out->stock, out->len);
+		*strp = ft_memmove(*strp, out->out, out->len);
 	ft_free_ele(ele);
-	ft_free_outp(out);
+	ft_free_out(out);
 	va_end(ap);
-	return (out->len);
+	return (len);
 }
 
 int				ft_asprintf(char **strp, const char *format, ...)
@@ -31,10 +34,10 @@ int				ft_asprintf(char **strp, const char *format, ...)
 	t_arg		*ele;
 	va_list		ap;
 	int			i;
-	t_outp		output;
+	t_out		output;
 
 	i = 0;
-	ft_init_outp(&output);
+	ft_init_out(&output);
 	va_start(ap, format);
 	while (*format || *format == '\0')
 	{

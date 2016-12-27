@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:16:53 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 17:34:18 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:05:43 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		ft_prec_num(t_arg *ele, t_out *tmp, t_out *flag)
 	ft_free_out(&prec);
 }
 
-static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_outp *out)
+static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_out *out)
 {
 	if (ele->precision != -1)
 		ft_prec_num(ele, tmp, flag);
@@ -61,11 +61,11 @@ static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_outp *out)
 	}
 	if (ele->zero && (flag->len > 0 && *(flag->out) != '+' && *(flag->out) != ' '))
 		ft_free_out(flag);
-	ft_pad(tmp, flag->out, ele);
-	ft_fill_outp(out, tmp->out, tmp->len);
+	ft_pad(tmp, ((flag->len > 0) ? flag->out : 0), ele);
+	ft_fill_out(out, tmp->out, tmp->len);
 }
 
-void			ft_float(t_outp *output, t_out *tmp, t_arg *ele)
+void			ft_float(t_out *output, t_out *tmp, t_arg *ele)
 {
 	t_out 		flag;
 	char 		*str;
@@ -84,13 +84,13 @@ void			ft_float(t_outp *output, t_out *tmp, t_arg *ele)
 		ft_fill_out(tmp, str, ele->len);
 		ft_fill_out(tmp, ".", 1);
 	}
-	free(str);
+//	free(str);
 	ft_make_num(ele, tmp, &flag, output);
 	ft_free_out(&flag);
 	ft_free_out(tmp);
 }
 
-void			ft_num(t_outp *output, t_out *tmp, t_arg *ele)
+void			ft_num(t_out *output, t_out *tmp, t_arg *ele)
 {
 	t_out		flag;
 	char		*str;
@@ -118,8 +118,8 @@ void			ft_num(t_outp *output, t_out *tmp, t_arg *ele)
 	ft_fill_out(tmp, str, ele->len);
 	ele->zero = (tmp->len > 0 && *(tmp->out) == '0') ? 1 : 0;
 	ft_make_num(ele, tmp, &flag, output);
-	if (str)
-		free(str);
+//	if (str)
+//		free(str);
 	free(base_str);
 	ft_free_out(&flag);
 	ft_free_out(tmp);

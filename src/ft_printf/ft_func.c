@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:38:24 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 17:28:50 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:37:42 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char			*ft_init_base(char type, int *base)
 	return (base_str);
 }
 
-void			ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele)
+void			ft_nonspec(t_out *output, t_out *tmp, t_arg *ele)
 {
 	char		c[2];
 
@@ -56,11 +56,11 @@ void			ft_nonspec(t_outp *output, t_out *tmp, t_arg *ele)
 			ele->pad += 1;
 	}
 	ft_pad(tmp, c, ele);
-	ft_fill_outp(output, tmp->out, tmp->len);
+	ft_fill_out(output, tmp->out, tmp->len);
 	ft_free_out(tmp);
 }
 
-static void		ft_point_b(t_outp *output, t_arg *ele, t_out *tmp, t_out *flag)
+static void		ft_point_b(t_out *output, t_arg *ele, t_out *tmp, t_out *flag)
 {
 	t_out		prec;
 
@@ -78,12 +78,12 @@ static void		ft_point_b(t_outp *output, t_arg *ele, t_out *tmp, t_out *flag)
 		ft_pad(tmp, flag->out, ele);
 	}
 	else
-		ft_fill_outp(output, flag->out, flag->len);
-	ft_fill_outp(output, tmp->out, tmp->len);
+		ft_fill_out(output, flag->out, flag->len);
+	ft_fill_out(output, tmp->out, tmp->len);
 	ft_free_out(&prec);
 }
 
-void			ft_point(unsigned long int nb, t_outp *output, t_out *tmp,
+void			ft_point(unsigned long int nb, t_out *output, t_out *tmp,
 					t_arg *ele)
 {
 	t_out		flag;
@@ -107,11 +107,11 @@ void			ft_point(unsigned long int nb, t_outp *output, t_out *tmp,
 	ft_free_out(tmp);
 }
 
-void			ft_percent(t_outp *output, t_out *tmp, t_arg *ele)
+void			ft_percent(t_out *output, t_out *tmp, t_arg *ele)
 {
 	ft_fill_out(tmp, "%", 1);
 	if (ele->pad != 0)
 		ft_pad(tmp, 0, ele);
-	ft_fill_outp(output, tmp->out, tmp->len);
+	ft_fill_out(output, tmp->out, tmp->len);
 	ft_free_out(tmp);
 }

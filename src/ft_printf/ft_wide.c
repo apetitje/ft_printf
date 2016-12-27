@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 12:01:56 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/16 13:07:14 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:38:50 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void		ft_print_wide(t_out *tmp, t_arg *ele, wchar_t **ls, int *put)
 	*ls += 1;
 }
 
-void			ft_wide(t_outp *output, t_out *tmp, t_arg *ele)
+void			ft_wide(t_out *output, t_out *tmp, t_arg *ele)
 {
 	wchar_t		*ls;
 	int			size;
@@ -119,5 +119,5 @@ void			ft_wide(t_outp *output, t_out *tmp, t_arg *ele)
 		ft_free_out(tmp);
 	if (ele->pad != 0)
 		ft_pad(tmp, 0, ele);
-	ft_fill_outp(output, tmp->out, tmp->len);
+	ft_fill_out(output, tmp->out, tmp->len);
 }

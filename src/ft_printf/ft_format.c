@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 17:42:14 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:37:01 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void		ft_format(t_arg *ele, va_list ap)
 	ft_format_alpha(ap, ele);
 }
 
-void			ft_process_format(t_outp *output, t_arg *ele)
+void			ft_process_format(t_out *output, t_arg *ele)
 {
 	unsigned long int	nb;
 	t_out				tmp;
@@ -114,7 +114,7 @@ void			ft_process_format(t_outp *output, t_arg *ele)
 		ft_nonspec(output, &tmp, ele);
 }
 
-t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
+t_arg			*ft_print(t_out *out, const char **str, va_list ap)
 {
 	t_arg	*ele;
 	char	flag[200];
@@ -127,7 +127,7 @@ t_arg			*ft_print(t_outp *out, const char **str, va_list ap)
 	{
 		if (**str == '{')
 			ft_color(out, str);
-		ft_fill_outp(out, *str, 1);
+		ft_fill_out(out, *str, 1);
 		*str += 1;
 	}
 	if (**str != '\0')

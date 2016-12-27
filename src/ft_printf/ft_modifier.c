@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 12:18:32 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 17:42:36 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:42:19 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void		ft_modifier(t_arg *ele)
 	ft_num_modif(ele);
 }
 
-void		ft_color(t_outp *out, const char **str)
+void		ft_color(t_out *out, const char **str)
 {
 	int i;
 	int	is_col;
@@ -126,7 +126,7 @@ void		ft_color(t_outp *out, const char **str)
 	{
 		if (!ft_strncmp(*str, g_coltab[i].str, g_coltab[i].len))
 		{
-			ft_fill_outp(out, g_coltab[i].code, g_coltab[i].codelen);
+			ft_fill_out(out, g_coltab[i].code, g_coltab[i].codelen);
 			is_col = 1;
 			break ;
 		}

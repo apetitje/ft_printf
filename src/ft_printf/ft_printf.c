@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 17:48:48 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:45:20 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,19 @@ t_arg			*ft_arg(char type, char flag[200], char modifier, va_list ap)
 	return (new_ele);
 }
 
-static int		ft_end(t_outp *out, t_arg **ele, va_list ap)
+static int		ft_end(t_out *out, t_arg **ele, va_list ap)
 {
+	int		len;
+
+	len = out->len;
 	if (!out->stocked)
-		write(1, out->out, out->len);
+		write(1, out->out1, out->len);
 	else
-		write(1, out->stock, out->len);
+		write(1, out->out, out->len);
 	ft_free_ele(ele);
-	ft_free_outp(out);
+	ft_free_out(out);
 	va_end(ap);
-	return (out->len);
+	return (len);
 }
 
 int				ft_printf(const char *format, ...)
@@ -57,10 +60,10 @@ int				ft_printf(const char *format, ...)
 	t_arg		*ele;
 	va_list		ap;
 	int			i;
-	t_outp		output;
+	t_out		output;
 
 	i = 0;
-	ft_init_outp(&output);
+	ft_init_out(&output);
 	va_start(ap, format);
 	while (*format || *format == '\0')
 	{
