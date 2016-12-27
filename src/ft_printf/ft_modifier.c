@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 12:18:32 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:42:19 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 15:57:36 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,31 @@ char		ft_find_type(const char **str, char flag[200], char *modif, int *i)
 {
 	if (**str == '\0')
 		return (**str);
-	if (**str == 'h')
+	if (ft_strchr("hlzj *.+-#0123456789", **str))
 	{
-		if (*modif != 'j' && *modif != 'z' && *modif != 'l' && *modif != 'L')
+		if (**str == 'h')
+		{
+			if (!ft_strchr("jzlL", *modif))
+			{
+				*modif = **str;
+				if (*(*str - 1) && *(*str - 1) == 'h')
+					*modif = 'H';
+			}
+		}
+		if (ft_strchr("lzj", **str))
 		{
 			*modif = **str;
-			if (*(*str - 1) && *(*str - 1) == 'h')
-				*modif = 'H';
+			if (**str == 'l' && ((*(*str - 1) && *(*str - 1) == 'l')))
+				*modif = 'L';
 		}
-		flag[*i] = **str;
-		*str += 1;
-		*i += 1;
-		return (ft_find_type(str, flag, modif, i));
-	}
-	if (**str == 'l' || **str == 'z' || **str == 'j')
-	{
-		*modif = **str;
-		if (**str == 'l' && ((*(*str - 1) && *(*str - 1) == 'l')))
-			*modif = 'L';
-		flag[*i] = **str;
-		*str += 1;
-		*i += 1;
-		return (ft_find_type(str, flag, modif, i));
-	}
-	if (**str == ' ' || **str == '*' || **str == '.' || **str == '+' || **str == '-' || **str == '#' || (**str >= '0' && **str <= '9'))
-	{
-		flag[*i] = **str;
-		*str += 1;
-		*i += 1;
+		flag[(*i)++] = *(*str)++;
 		return (ft_find_type(str, flag, modif, i));
 	}
 	return (**str);
 }
 
-t_arg		*ft_find_modif(const char **str, char flag[200], char *modif, va_list ap)
+t_arg		*ft_find_modif(const char **str, char flag[200], char *modif,
+		va_list ap)
 {
 	int		i;
 	char	type;

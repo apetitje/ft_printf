@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:16:53 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 12:43:59 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 17:00:50 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		ft_prec_num(t_arg *ele, t_out *tmp, t_out *flag)
 {
 	char		*ptr;
 	t_out		prec;
-	int 		len;
+	int			len;
 
 	ft_init_out(&prec);
 	if (tmp->len > 0 && *(tmp->out) == '-')
@@ -33,11 +33,8 @@ static void		ft_prec_num(t_arg *ele, t_out *tmp, t_out *flag)
 	if (flag->len > 0 && ft_strcmp(flag->out, "0x") != 0 &&
 			ft_strcmp(flag->out, " ") != 0 && ft_strcmp(flag->out, "+") != 0)
 		ele->precision -= flag->len;
-	while (ele->precision > 0)
-	{
+	while (ele->precision-- > 0)
 		ft_fill_out(&prec, "0", 1);
-		ele->precision--;
-	}
 	ft_join_before(tmp, prec.out, prec.len);
 	ft_free_out(&prec);
 }
@@ -59,7 +56,8 @@ static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_out *out)
 		else
 			ele->pad += flag->len;
 	}
-	if (ele->zero && (flag->len > 0 && *(flag->out) != '+' && *(flag->out) != ' '))
+	if (ele->zero && (flag->len > 0 && *(flag->out) != '+'
+				&& *(flag->out) != ' '))
 		ft_free_out(flag);
 	ft_pad(tmp, ((flag->len > 0) ? flag->out : 0), ele);
 	ft_fill_out(out, tmp->out, tmp->len);
@@ -67,19 +65,26 @@ static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_out *out)
 
 void			ft_float(t_out *output, t_out *tmp, t_arg *ele)
 {
-	t_out 		flag;
+	t_out		flag;
 
 	ft_init_out(&flag);
 	ft_flags_num(&flag, ele);
-	if (!(ft_strchr(ele->flag, '#') && ele->precision == -1))
-	{
-		ft_dtoa(ele->data.f, (ele->precision > 0
-					|| ele->precision == -1) ? ele->precision : 6, ele, tmp);
-	}
+	if (ele->data.f != ele->data.f)
+		ft_fill_out(tmp, "NaN", 3);
 	else
 	{
-		ft_itoa((int)ele->data.f, ele, tmp);
-		ft_fill_out(tmp, ".", 1);
+		if (ele->precision != -1 && ele->precision != 0)
+			ele->data.f += ((ele->data.f < 0) ? -1 : 1)
+				* ft_pow(10.0, -ele->precision) * 0.5;
+		else if (!ft_strchr(ele->flag, '#') && ele->precision != -1)
+			ele->data.f += ((ele->data.f < 0) ? -1 : 1) * ft_pow(10.0, -6)
+				* 0.5;
+		else
+			ele->data.f += ((ele->data.f < 0) ? -1 : 1) * 0.5;
+		ft_dtoa(ele->data.f, (ele->precision > 0
+					|| ele->precision == -1) ? ele->precision : 6, ele, tmp);
+		if (ft_strchr(ele->flag, '#') && ele->precision == -1)
+			ft_fill_out(tmp, ".", 1);
 	}
 	ft_make_num(ele, tmp, &flag, output);
 	ft_free_out(&flag);
@@ -105,7 +110,7 @@ void			ft_num(t_out *output, t_out *tmp, t_arg *ele)
 	else if (ele->format == 'w')
 		ft_itoa_base(ele->data.uc, ele, tmp);
 	else if (ele->format == 'K')
-		 ft_itoa_base(ele->data.llu, ele, tmp);
+		ft_itoa_base(ele->data.llu, ele, tmp);
 	ele->zero = (tmp->len > 0 && *(tmp->out) == '0') ? 1 : 0;
 	ft_make_num(ele, tmp, &flag, output);
 	ft_free_out(&flag);

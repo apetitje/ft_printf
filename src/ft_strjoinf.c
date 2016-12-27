@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoinf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 18:40:14 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 16:42:23 by apetitje         ###   ########.fr       */
+/*   Created: 2016/12/27 16:42:06 by apetitje          #+#    #+#             */
+/*   Updated: 2016/12/27 17:01:16 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoinf(void *s1, void *s2, int to_free)
 {
-	size_t	total_len;
 	char	*new_str;
 
 	if (!s1 && !s2)
@@ -25,11 +24,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		new_str = ft_strdup(s1);
 	else
 	{
-		total_len = ft_strlen(s1) + ft_strlen(s2);
-		if (!(new_str = (char *)malloc(sizeof(char) * (total_len + 1))))
+		if (!(new_str = (char *)malloc(sizeof(char)
+						* (ft_strlen(s1) + ft_strlen(s2) + 1))))
 			return (NULL);
 		ft_strcpy(new_str, s1);
 		ft_strcat(new_str, s2);
 	}
+	if (to_free == 1 || to_free == 3)
+		free(s1);
+	if (to_free == 2 || to_free == 3)
+		free(s2);
 	return (new_str);
 }

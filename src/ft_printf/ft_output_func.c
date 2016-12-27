@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:32:31 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:57:44 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 16:06:17 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_fill_out(t_out *out, const char *format, int len)
 			}
 			else
 			{
-				if (!(out->out = (char *)malloc(sizeof(char) * (out->len + len + 1))))
+				if (!(out->out = (char *)malloc(sizeof(char)
+								* (out->len + len + 1))))
 					exit(EXIT_FAILURE);
 				out->out = ft_memcpy(out->out, out->out1, out->len);
 			}
@@ -49,7 +50,8 @@ void	ft_join_before(t_out *out, const char *s, int len)
 			return ;
 		else
 		{
-			if (!(new_str = (char *)malloc(sizeof(char) * (out->len + len + 1))))
+			if (!(new_str = (char *)malloc(sizeof(char)
+							* (out->len + len + 1))))
 				exit(EXIT_FAILURE);
 			new_str = ft_memcpy(new_str, s, len);
 			ft_memcpy(new_str + len, out->out, out->len);

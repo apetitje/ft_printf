@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:45:20 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 15:25:18 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,27 @@ static void		ft_init_arg(t_arg *new_ele)
 	new_ele->pad = 0;
 	new_ele->len = 0;
 	new_ele->padchar = ' ';
+}
+
+static void		ft_process_format(t_out *output, t_arg *ele)
+{
+	t_out		tmp;
+
+	ft_init_out(&tmp);
+	if (ele->type == 'f' || ele->type == 'F')
+		ft_float(output, &tmp, ele);
+	else if (ele->format == 'c' || ele->type == 's')
+		ft_alpha(output, &tmp, ele);
+	else if (ele->type == 'C' || ele->type == 'S')
+		ft_wide(output, &tmp, ele);
+	else if (ele->type == 'p')
+		ft_point((unsigned long int)(ele->data.p), output, &tmp, ele);
+	else if (ele->type == '%')
+		ft_percent(output, &tmp, ele);
+	else if (ft_strchr("hydDuULwK", ele->format))
+		ft_num(output, &tmp, ele);
+	else
+		ft_nonspec(output, &tmp, ele);
 }
 
 t_arg			*ft_arg(char type, char flag[200], char modifier, va_list ap)
@@ -45,10 +66,7 @@ static int		ft_end(t_out *out, t_arg **ele, va_list ap)
 	int		len;
 
 	len = out->len;
-	if (!out->stocked)
-		write(1, out->out1, out->len);
-	else
-		write(1, out->out, out->len);
+	write(1, out->out, out->len);
 	ft_free_ele(ele);
 	ft_free_out(out);
 	va_end(ap);
@@ -65,15 +83,12 @@ int				ft_printf(const char *format, ...)
 	i = 0;
 	ft_init_out(&output);
 	va_start(ap, format);
-	while (*format || *format == '\0')
+	while ((ele = ft_print(&output, &format, ap)) != NULL)
 	{
-		if ((ele = ft_print(&output, &format, ap)) == NULL)
-			return (ft_end(&output, &ele, ap));
 		if (ele->type != 'n')
 			ft_process_format(&output, ele);
 		++format;
 		ft_free_ele(&ele);
 	}
-	va_end(ap);
-	return (0);
+	return (ft_end(&output, &ele, ap));
 }

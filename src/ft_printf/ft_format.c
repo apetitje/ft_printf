@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 13:14:33 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 15:19:07 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,27 +88,6 @@ static void		ft_format(t_arg *ele, va_list ap)
 	ft_format_alpha(ap, ele);
 }
 
-void			ft_process_format(t_out *output, t_arg *ele)
-{
-	t_out				tmp;
-
-	ft_init_out(&tmp);
-	if (ele->type == 'f' || ele->type == 'F')
-		ft_float(output, &tmp, ele);
-	else if (ele->format == 'c' || ele->type == 's')
-		ft_alpha(output, &tmp, ele);
-	else if (ele->type == 'C' || ele->type == 'S')
-		ft_wide(output, &tmp, ele);
-	else if (ele->type == 'p')
-		ft_point((unsigned long int)(ele->data.p), output, &tmp, ele);
-	else if (ele->type == '%')
-		ft_percent(output, &tmp, ele);
-	else if (ft_strchr("hydDuULwK", ele->format))
-		ft_num(output, &tmp, ele);
-	else
-		ft_nonspec(output, &tmp, ele);
-}
-
 t_arg			*ft_print(t_out *out, const char **str, va_list ap)
 {
 	t_arg	*ele;
@@ -118,14 +97,14 @@ t_arg			*ft_print(t_out *out, const char **str, va_list ap)
 	ele = NULL;
 	modifier = 0;
 	ft_bzero(flag, 200);
-	while (**str && **str != '%')
+	while (*str && **str && **str != '%')
 	{
 		if (**str == '{')
 			ft_color(out, str);
 		ft_fill_out(out, *str, 1);
 		*str += 1;
 	}
-	if (**str != '\0')
+	if (*str && **str != '\0')
 	{
 		if (!(ele = ft_find_modif(str, flag, &modifier, ap)))
 			return (NULL);

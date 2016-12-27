@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 12:01:56 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 13:23:33 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 16:08:10 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void		ft_putwide(t_out *output, wchar_t c, size_t size, int decalage)
 	}
 }
 
-static void		ft_print_wide(t_out *tmp, t_arg *ele, wchar_t **ls, int *put)
+void			ft_print_wide(t_out *tmp, t_arg *ele, wchar_t **ls, int *put)
 {
 	int			decalage;
 	int			size;
@@ -95,11 +95,9 @@ static void		ft_print_wide(t_out *tmp, t_arg *ele, wchar_t **ls, int *put)
 void			ft_wide(t_out *output, t_out *tmp, t_arg *ele)
 {
 	wchar_t		*ls;
-	int			size;
 	int			put;
 
 	put = 0;
-	size = 0;
 	if (ele->type == 'C')
 	{
 		ls = &(ele->data.lc);

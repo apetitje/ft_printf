@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 20:50:12 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 18:11:21 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 16:00:27 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void			ft_flags_all(t_arg *ele, va_list ap)
 				&& (!ft_strchr(ele->flag, '-'))) || (ft_strchr(ele->flag, '.')
 					&& ft_strchr(ele->flag, '*'))))
 			ele->padchar = '0';
-		if ((ele->flag[i] == '-' || ft_isdigit(ele->flag[i]) || ele->flag[i] == '*')
-				&& ele->flag[i] != '0' && (i == 0 || ele->flag[i - 1] != '.'))
+		if (ft_strchr("-*123456789", ele->flag[i])
+				&& (i == 0 || ele->flag[i - 1] != '.'))
 			i = ft_find_pad(ele, i, ap);
 		if (ele->flag[i] == '.' && ele->flag + i + 1)
 			i = ft_precision(ele, i, ap);

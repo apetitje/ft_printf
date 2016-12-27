@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:45:36 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 15:25:15 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,37 @@
 
 static int		ft_end(char **strp, t_out *out, t_arg **ele, va_list ap)
 {
-	int		len;
+	int			len;
 
 	len = out->len;
-	if (!(*strp = ft_memalloc(out->len + 1)))
+	if (out->len > 0 && !(*strp = ft_memalloc(out->len + 1)))
 		exit(EXIT_FAILURE);
-	if (!out->stocked)
-		*strp = ft_memmove(*strp, out->out1, out->len);
-	else
-		*strp = ft_memmove(*strp, out->out, out->len);
+	*strp = ft_memcpy(*strp, out->out, out->len);
 	ft_free_ele(ele);
 	ft_free_out(out);
 	va_end(ap);
 	return (len);
+}
+
+static void		ft_process_format(t_out *output, t_arg *ele)
+{
+	t_out		tmp;
+
+	ft_init_out(&tmp);
+	if (ele->type == 'f' || ele->type == 'F')
+		ft_float(output, &tmp, ele);
+	else if (ele->format == 'c' || ele->type == 's')
+		ft_asalpha(output, &tmp, ele);
+	else if (ele->type == 'C' || ele->type == 'S')
+		ft_aswide(output, &tmp, ele);
+	else if (ele->type == 'p')
+		ft_point((unsigned long int)(ele->data.p), output, &tmp, ele);
+	else if (ele->type == '%')
+		ft_percent(output, &tmp, ele);
+	else if (ft_strchr("hydDuULwK", ele->format))
+		ft_num(output, &tmp, ele);
+	else
+		ft_nonspec(output, &tmp, ele);
 }
 
 int				ft_asprintf(char **strp, const char *format, ...)
@@ -39,15 +57,12 @@ int				ft_asprintf(char **strp, const char *format, ...)
 	i = 0;
 	ft_init_out(&output);
 	va_start(ap, format);
-	while (*format || *format == '\0')
+	while ((ele = ft_print(&output, &format, ap)) != NULL)
 	{
-		ele = ft_print(&output, &format, ap);
-		if (ele->type == '\0')
-			return (ft_end(strp, &output, &ele, ap));
-		ft_process_format(&output, ele);
+		if (ele->type != 'n')
+			ft_process_format(&output, ele);
 		++format;
 		ft_free_ele(&ele);
 	}
-	va_end(ap);
-	return (0);
+	return (ft_end(strp, &output, &ele, ap));
 }

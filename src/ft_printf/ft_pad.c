@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:43:10 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:52:05 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 16:06:47 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		ft_padright(t_arg *ele, char *flag, t_out *pad, t_out *output)
 			&& *(output->out) == '-' && ele->padchar == '0')
 	{
 		ft_join_before(pad, "-", 1);
-		ptr = ft_strndup(output->out + 1, output->len -1);
+		ptr = ft_strndup(output->out + 1, output->len - 1);
 		len = output->len - 1;
 		ft_free_out(output);
 		ft_fill_out(output, ptr, len);
@@ -54,7 +54,7 @@ static void		ft_padright(t_arg *ele, char *flag, t_out *pad, t_out *output)
 
 void			ft_pad(t_out *output, char *flag, t_arg *ele)
 {
-	t_out 	pad;
+	t_out	pad;
 	int		i;
 
 	i = -1;
