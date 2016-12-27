@@ -6,39 +6,27 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:38:24 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:37:42 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 13:08:54 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char			*ft_init_base(char type, int *base)
+char			*ft_init_base(char type, size_t *base)
 {
 	char	*base_str;
 
-	if (type == 'x' || type == 'X')
-	{
-		if (type == 'x')
-			base_str = ft_strdup("0123456789abcdef");
-		else
-			base_str = ft_strdup("0123456789ABCDEF");
-		*base = 16;
-	}
-	else if (type == 'o' || type == 'O')
-	{
-		base_str = ft_strdup("01234567");
-		*base = 8;
-	}
-	else if (type == 'b')
-	{
-		base_str = ft_strdup("01");
-		*base = 2;
-	}
+	*base = 16;
+	if (type != 'x')
+		base_str = ft_strdup("0123456789ABCDEF");
 	else
-	{
-		base_str = ft_strdup("0123456789");
+		base_str = ft_strdup("0123456789abcdef");
+	if (type == 'o' || type == 'O')
+		*base = 8;
+	else if (type == 'b')
+		*base = 2;
+	else if (type != 'x' && type != 'X')
 		*base = 10;
-	}
 	return (base_str);
 }
 
@@ -87,12 +75,11 @@ void			ft_point(unsigned long int nb, t_out *output, t_out *tmp,
 					t_arg *ele)
 {
 	t_out		flag;
-	char		*str;
 
 	ft_init_out(&flag);
 	ft_fill_out(&flag, "0x", 2);
-	str = ft_itoa_base(nb, 16, "0123456789abcdef", &(ele->len));
-	ft_fill_out(tmp, str, ele->len);
+	ele->type = 'x';
+	ft_itoa_base(nb, ele, tmp);
 	if (*(tmp->out) == '0')
 		ele->zero = 1;
 	if (ele->precision == -1)
@@ -102,7 +89,6 @@ void			ft_point(unsigned long int nb, t_out *output, t_out *tmp,
 			ft_free_out(tmp);
 	}
 	ft_point_b(output, ele, tmp, &flag);
-	free(str);
 	ft_free_out(&flag);
 	ft_free_out(tmp);
 }

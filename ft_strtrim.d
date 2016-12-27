@@ -1,1 +1,1 @@
-ft_strtrim.o: src/ft_strtrim.c inc/libft.h
+ft_strtrim.o: src/ft_strtrim.c inc/ft_printf.h

@@ -6,12 +6,12 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:55:00 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/06 15:25:33 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:22:48 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 static int	ft_count_words(char const *s, char c)
 {

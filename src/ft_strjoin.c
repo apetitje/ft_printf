@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:40:14 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/08 16:16:22 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:22:33 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 #include <stdlib.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)

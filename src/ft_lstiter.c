@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 10:52:34 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/08 14:59:32 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:21:46 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {

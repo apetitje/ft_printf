@@ -6,12 +6,12 @@
 /*   By: apetitje <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 21:57:11 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/19 18:14:44 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:15:17 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 char	*ft_strdup(const char *s1)
 {

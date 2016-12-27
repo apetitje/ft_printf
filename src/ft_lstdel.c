@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 10:42:32 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/08 11:52:22 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:21:27 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 #include <stdlib.h>
 
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))

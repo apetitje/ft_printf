@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 10:21:52 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/08 21:10:45 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:22:01 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 #include <stdlib.h>
 
 t_list	*ft_lstnew(void const *content, size_t content_size)

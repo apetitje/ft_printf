@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:33:46 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/14 11:46:18 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:16:23 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 char	*ft_strncpy(char *dst, const char *src, size_t len)
 {

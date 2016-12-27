@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:45:04 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/08 21:37:32 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:23:00 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 #include <stdlib.h>
 
 static int	ft_new_len(int *ind, int *end, char const *s)

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:37:01 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 13:14:33 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,9 @@ static void		ft_format(t_arg *ele, va_list ap)
 
 void			ft_process_format(t_out *output, t_arg *ele)
 {
-	unsigned long int	nb;
 	t_out				tmp;
 
 	ft_init_out(&tmp);
-	if (ele->type == 'p')
-		nb = (unsigned long int)(ele->data.p);
-	if (ele->type == 'C')
-		ele->len = 1;
 	if (ele->type == 'f' || ele->type == 'F')
 		ft_float(output, &tmp, ele);
 	else if (ele->format == 'c' || ele->type == 's')
@@ -105,7 +100,7 @@ void			ft_process_format(t_out *output, t_arg *ele)
 	else if (ele->type == 'C' || ele->type == 'S')
 		ft_wide(output, &tmp, ele);
 	else if (ele->type == 'p')
-		ft_point(nb, output, &tmp, ele);
+		ft_point((unsigned long int)(ele->data.p), output, &tmp, ele);
 	else if (ele->type == '%')
 		ft_percent(output, &tmp, ele);
 	else if (ft_strchr("hydDuULwK", ele->format))
@@ -138,8 +133,6 @@ t_arg			*ft_print(t_out *out, const char **str, va_list ap)
 			*(va_arg(ap, int *)) = out->len;
 		else
 			ft_format(ele, ap);
-		return (ele);
 	}
-	else
-		return (NULL);
+	return (ele);
 }

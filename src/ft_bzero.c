@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 16:47:35 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/05 19:59:40 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:17:07 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 void	ft_bzero(void *s, size_t n)
 {

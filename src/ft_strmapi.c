@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:30:10 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/06 15:25:08 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:19:54 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 #include <stdlib.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))

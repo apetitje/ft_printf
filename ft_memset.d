@@ -1,1 +1,1 @@
-ft_memset.o: src/ft_memset.c inc/libft.h
+ft_memset.o: src/ft_memset.c inc/ft_printf.h

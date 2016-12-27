@@ -1,1 +1,1 @@
-ft_memchr.o: src/ft_memchr.c inc/libft.h
+ft_memchr.o: src/ft_memchr.c inc/ft_printf.h

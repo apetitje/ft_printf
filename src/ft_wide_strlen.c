@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 17:31:49 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/11 23:50:09 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:14:31 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 int		ft_wide_strlen(const wchar_t *s)
 {

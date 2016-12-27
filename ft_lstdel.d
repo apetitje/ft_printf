@@ -1,1 +1,1 @@
-ft_lstdel.o: src/ft_lstdel.c inc/libft.h
+ft_lstdel.o: src/ft_lstdel.c inc/ft_printf.h

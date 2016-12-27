@@ -6,47 +6,72 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 14:05:46 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/13 16:43:54 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:50:12 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "ft_printf.h"
 
-char			*ft_end(char *number, char *floor, char *after, int *range)
+static char       *ft_itoa1(long long int n)
 {
-	number = ft_strjoin(floor, after);
-	free(floor);
-	free(after);
-	*range = ft_strlen(number);
-	return (number);
+	int                 is_neg;
+    unsigned long long  nb_cpy;
+    char                inv[100];
+    int                 i;
+
+    i = 98;
+    is_neg = 0;
+    if (n < 0)
+        is_neg = 1;
+    nb_cpy = (n < 0) ? (unsigned long long)-n : (unsigned long long)n;
+    inv[99] = '\0';
+    while (nb_cpy >= 10)
+    {
+        inv[i] = nb_cpy % 10 + 48;
+        nb_cpy = nb_cpy / 10;
+        --i;
+    }
+    inv[i] = nb_cpy + 48;
+    if (is_neg == 1)
+        inv[--i] = '-';
+    return (ft_strdup(inv + i));
 }
 
-char			*ft_dtoa(double n, int prec, int *range)
+
+
+void			ft_dtoa(double n, int prec, t_arg *ele, t_out *tmp)
 {
 	int		i;
 	char	*number;
 	char	*floor;
 	char	*after;
 
-	number = NULL;
 	i = 0;
 	if (n != n)
-		return (ft_strdup("NaN"));
-	if (prec == -1)
-		return (ft_itoa((long long int)n, range));
-	n += ((n < 0) ? -1 : 1) * ft_pow(10.0, -prec) * 0.5;
-	floor = ft_itoa((long long int)n, range);
-	n = (n < 0) ? -(n - (long long int)n) : (n - (long long int)n);
-	if (!(after = (char *)malloc(sizeof(char) * (prec + 2))))
-		exit(EXIT_FAILURE);
-	after[0] = '.';
-	after[prec + 1] = '\0';
-	while (++i <= prec)
+		ft_fill_out(tmp, "NaN", 3);
+	else if (prec == -1)
+		ft_itoa((long long int)n, ele, tmp);
+	else
 	{
-		after[i] = (int)(n * 10) + 48;
-		n = n * 10 - (int)(n * 10);
+		n += ((n < 0) ? -1 : 1) * ft_pow(10.0, -prec) * 0.5;
+		floor = ft_itoa1((long long int)n);
+		n = (n < 0) ? -(n - (long long int)n) : (n - (long long int)n);
+		if (!(after = (char *)malloc(sizeof(char) * (prec + 2))))
+			exit(EXIT_FAILURE);
+		after[0] = '.';
+		after[prec + 1] = '\0';
+		while (++i <= prec)
+		{
+			after[i] = (int)(n * 10) + 48;
+			n = n * 10 - (int)(n * 10);
+		}
+		number = ft_strjoin(floor, after);
+		free(floor);
+		free(after);
+
+		ele->len = ft_strlen(number);
+		ft_fill_out(tmp, number, ele->len);
+		free(number);
 	}
-	number = ft_end(number, floor, after, range);
-	return (number);
 }

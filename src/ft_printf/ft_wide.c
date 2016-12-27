@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 12:01:56 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 11:38:50 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 13:23:33 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void		ft_putwide(t_out *output, wchar_t c, size_t size, int decalage)
 		ch = 0xe0 + ((c & 0xf000) >> decalage);
 	else if (size == 2)
 		ch = 0xc0 + ((c & 0x0fc0) >> decalage);
+	else if (size == 1)
+		ch = c;
 	size--;
 	decalage -= 6;
 	ft_fill_out(output, &ch, 1);
@@ -84,10 +86,7 @@ static void		ft_print_wide(t_out *tmp, t_arg *ele, wchar_t **ls, int *put)
 					|| *put <= ele->precision)))
 	{
 		decalage = 6 * (size - 1);
-		if (size == 1)
-			ft_fill_out(tmp, (char *)*ls, 1);
-		else
-			ft_putwide(tmp, **ls, size, decalage);
+		ft_putwide(tmp, **ls, size, decalage);
 	}
 	ele->len -= 1;
 	*ls += 1;
@@ -102,11 +101,13 @@ void			ft_wide(t_out *output, t_out *tmp, t_arg *ele)
 	put = 0;
 	size = 0;
 	if (ele->type == 'C')
-		ls = &(ele->data.lc);
-	else
-		ls = (wchar_t *)(ele->data.p);
-	if (ele->type == 'S')
 	{
+		ls = &(ele->data.lc);
+		ele->len = 1;
+	}
+	else
+	{
+		ls = (wchar_t *)(ele->data.p);
 		if (ls)
 			ele->len = ft_wide_strlen(ls);
 		else

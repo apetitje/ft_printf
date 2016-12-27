@@ -1,1 +1,1 @@
-ft_strnequ.o: src/ft_strnequ.c inc/libft.h
+ft_strnequ.o: src/ft_strnequ.c inc/ft_printf.h

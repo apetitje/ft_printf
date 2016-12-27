@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 13:38:18 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/05 13:53:58 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:14:47 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 int		ft_isalnum(int c)
 {

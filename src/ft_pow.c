@@ -6,11 +6,11 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 12:07:08 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/13 12:07:49 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:22:07 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 double	ft_pow(double pow, int nb)
 {

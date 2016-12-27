@@ -6,12 +6,12 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:35:55 by apetitje          #+#    #+#             */
-/*   Updated: 2016/11/06 15:48:09 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/27 12:22:54 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
