@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 19:16:53 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/29 15:42:06 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 18:40:26 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,25 @@
 static void		ft_prec_num(t_arg *ele, t_out *tmp, t_out *flag)
 {
 	char		*ptr;
-	t_out		prec;
 	int			len;
 
-	ft_init_out(&prec);
+	ele->precision -= ele->len;
+	if (flag->len > 0 && !ele->sharp && !ele->space && !ele->plus)
+		ele->precision -= flag->len;
 	if (tmp->len > 0 && *(tmp->out) == '-')
 	{
-		ft_fill_out(&prec, "-", 1);
 		len = tmp->len - 1;
 		ptr = ft_strndup(tmp->out + 1, len);
+		ele->precision += 1;
 		ft_free_out(tmp);
+		ft_fill_out(tmp, "-", 1);
+		while (ele->precision-- > 0)
+			ft_fill_out(tmp, "0", 1);
 		ft_fill_out(tmp, ptr, len);
 		free(ptr);
-		ele->precision += 1;
 	}
-	ele->precision -= ele->len;
-	if (flag->len > 0 && !ele->sharp &&
-			!ele->space && !ele->plus)
-		ele->precision -= flag->len;
 	while (ele->precision-- > 0)
-		ft_fill_out(&prec, "0", 1);
-	ft_join_before(tmp, prec.out, prec.len);
-	ft_free_out(&prec);
+		ft_join_before(tmp, "0", 1);
 }
 
 static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_out *out)
@@ -49,16 +46,11 @@ static void		ft_make_num(t_arg *ele, t_out *tmp, t_out *flag, t_out *out)
 		if (ele->nul)
 			ft_free_out(tmp);
 	}
-	if (ele->pad != 0)
-	{
-		if (ele->pad > 0)
-			ele->pad -= flag->len;
-		else
-			ele->pad += flag->len;
-	}
-	if (ele->nul && (flag->len > 0 && !ele->plus && !ele->space))
-		ft_free_out(flag);
-	ft_pad(tmp, ((flag->len > 0) ? flag->out : 0), ele);
+	ele->pad += ((ele->pad > 0) ? -flag->len : flag->len);
+	if (ele->nul && (!ele->plus && !ele->space && flag->len > 0))
+		ft_pad(tmp, 0, ele);
+	else
+		ft_pad(tmp, flag->out, ele);
 	ft_fill_out(out, tmp->out, tmp->len);
 }
 
@@ -75,7 +67,7 @@ void			ft_float(t_out *output, t_out *tmp, t_arg *ele)
 		if (ele->precision != -1 && ele->precision != 0)
 			ele->data.f += ((ele->data.f < 0) ? -1 : 1)
 				* ft_pow(10.0, -ele->precision) * 0.5;
-		else if (!ft_strchr(ele->flag, '#') && ele->precision != -1)
+		else if (!ele->hash && ele->precision != -1)
 			ele->data.f += ((ele->data.f < 0) ? -1 : 1) * ft_pow(10.0, -6)
 				* 0.5;
 		else

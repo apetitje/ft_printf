@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:14:06 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 15:19:07 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 19:31:28 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ static void		ft_format(t_arg *ele, va_list ap)
 t_arg			*ft_print(t_out *out, const char **str, va_list ap)
 {
 	t_arg	*ele;
-	char	flag[200];
+	//char	flag[200];
 	char	modifier;
 
 	ele = NULL;
 	modifier = 0;
-	ft_bzero(flag, 200);
+//	ft_bzero(flag, 200);
 	while (*str && **str && **str != '%')
 	{
 		if (**str == '{')
@@ -106,7 +106,7 @@ t_arg			*ft_print(t_out *out, const char **str, va_list ap)
 	}
 	if (*str && **str != '\0')
 	{
-		if (!(ele = ft_find_modif(str, flag, &modifier, ap)))
+		if (!(ele = ft_find_modif(str, &modifier, ap)))
 			return (NULL);
 		if (ele->type == 'n')
 			*(va_arg(ap, int *)) = out->len;
