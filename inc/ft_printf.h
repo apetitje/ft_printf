@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:03:30 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/29 19:46:26 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 21:19:28 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef	struct				s_arg
 	int						wild;
 	int						zero;
 	int						sharp;
+	int						unsign;
 }							t_arg;
 
 typedef struct				s_list
@@ -218,8 +219,7 @@ void						ft_join_before(t_out *out, const char *s, int len);
 void						ft_free_ele(t_arg **arg);
 void						ft_float(t_out *output, t_out *tmp, t_arg *ele);
 void						ft_nonspec(t_out *output, t_out *tmp, t_arg *ele);
-t_arg						*ft_find_modif(const char **str,
-								char *modif, va_list ap);
+t_arg						*ft_find_modif(const char **str, va_list ap);
 t_arg						*ft_arg(void);
 char						*ft_init_base(char type, size_t *base);
 t_arg						*ft_print(t_out *out, const char **str, va_list ap);
@@ -228,5 +228,7 @@ void						ft_color(t_out *out, const char **str);
 void						ft_print_wide(t_out *tmp, t_arg *ele, wchar_t **ls,
 								int *put);
 int							ft_precision(t_arg *ele, int i, const char *str);
+void						ft_wild(const char *str, int i, t_arg *ele,
+								va_list ap);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:43:10 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/29 19:40:16 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 21:15:11 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				ft_find_pad(t_arg *ele, int i, const char *str)
 	return (i);
 }
 
-static void		ft_padright(t_arg *ele, char *flag, t_out *output)
+static int		ft_padright(t_arg *ele, char *flag, t_out *output)
 {
 	int		i;
 	char	*ptr;
@@ -29,9 +29,7 @@ static void		ft_padright(t_arg *ele, char *flag, t_out *output)
 
 	i = -1;
 	ptr = NULL;
-	if ((ele->padchar == ' ' || ele->type == 'Z') && flag && *flag)
-		ft_join_before(output, flag, ft_strlen(flag));
-	else if (flag && *flag)
+	if (flag && *flag)
 	{
 		while (++i < ele->pad)
 			ft_join_before(output, &(ele->padchar), 1);
@@ -49,9 +47,7 @@ static void		ft_padright(t_arg *ele, char *flag, t_out *output)
 		ft_fill_out(output, ptr, len);
 		free(ptr);
 	}
-	while (++i < ele->pad)
-		ft_join_before(output, &(ele->padchar), 1);
-
+	return (i);
 }
 
 void			ft_pad(t_out *output, char *flag, t_arg *ele)
@@ -70,6 +66,12 @@ void			ft_pad(t_out *output, char *flag, t_arg *ele)
 			ft_fill_out(output, &(ele->padchar), 1);
 	}
 	else
-		ft_padright(ele, flag, output);
+	{
+		if ((ele->padchar == ' ' || ele->type == 'Z') && flag && *flag)
+			ft_join_before(output, flag, ft_strlen(flag));
+		else
+			i = ft_padright(ele, flag, output);
+	}
+	while (++i < ele->pad)
+		ft_join_before(output, &(ele->padchar), 1);
 }
-

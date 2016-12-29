@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/29 19:32:19 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 20:16:23 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void		ft_init_arg(t_arg *new_ele)
 	new_ele->space = 0;
 	new_ele->wild = 0;
 	new_ele->zero = 0;
+	new_ele->unsign = 0;
 	new_ele->sharp = 0;
 }
 
@@ -53,17 +54,9 @@ t_arg			*ft_arg(void)
 {
 	t_arg		*new_ele;
 
-//	if (type == '\0')
-//		return (NULL);
 	if (!(new_ele = malloc(sizeof(t_arg))))
 		exit(EXIT_FAILURE);
 	ft_init_arg(new_ele);
-//	new_ele->type = type;
-//	new_ele->modifier = modifier;
-//	new_ele->format = type;
-	//new_ele->flag = ft_strdup(flag);
-//	ft_modifier(new_ele);
-//	ft_flags_all(new_ele, ap);
 	return (new_ele);
 }
 
