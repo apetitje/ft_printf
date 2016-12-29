@@ -6,25 +6,18 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:43:10 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 16:06:47 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 15:09:04 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int				ft_find_pad(t_arg *ele, int i, va_list ap)
+int				ft_find_pad(t_arg *ele, int i)
 {
-	if (ele->flag[i] == '-')
-		ele->padleft = 1;
-	else
-		ele->pad = (ele->flag[i] == '*') ? va_arg(ap, int)
-			: ft_atoi(ele->flag + i);
-	if (ft_isdigit(ele->flag[i]))
-	{
-		while (ele->flag[i] && ft_isdigit(ele->flag[i]))
-			++i;
-		--i;
-	}
+	ele->pad = ft_atoi(ele->flag + i);
+	while (ele->flag[i] && ft_isdigit(ele->flag[i]))
+		++i;
+	--i;
 	return (i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 19:38:24 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 13:08:54 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 14:26:21 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ char			*ft_init_base(char type, size_t *base)
 
 	*base = 16;
 	if (type != 'x')
-		base_str = ft_strdup("0123456789ABCDEF");
+		base_str = "0123456789ABCDEF";
 	else
-		base_str = ft_strdup("0123456789abcdef");
+		base_str = "0123456789abcdef";
 	if (type == 'o' || type == 'O')
 		*base = 8;
 	else if (type == 'b')
@@ -81,11 +81,11 @@ void			ft_point(unsigned long int nb, t_out *output, t_out *tmp,
 	ele->type = 'x';
 	ft_itoa_base(nb, ele, tmp);
 	if (*(tmp->out) == '0')
-		ele->zero = 1;
+		ele->nul = 1;
 	if (ele->precision == -1)
 	{
 		ele->padchar = ' ';
-		if (ele->zero)
+		if (ele->nul)
 			ft_free_out(tmp);
 	}
 	ft_point_b(output, ele, tmp, &flag);

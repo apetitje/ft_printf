@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 13:51:45 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 15:25:18 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 15:40:27 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 static void		ft_init_arg(t_arg *new_ele)
 {
-	new_ele->zero = 0;
+	new_ele->nul = 0;
 	new_ele->precision = 0;
 	new_ele->padleft = 0;
 	new_ele->pad = 0;
 	new_ele->len = 0;
 	new_ele->padchar = ' ';
+	new_ele->hash = 0;
+	new_ele->plus = 0;
+	new_ele->space = 0;
+	new_ele->wild = 0;
+	new_ele->zero = 0;
+	new_ele->pos = 0;
+	new_ele->sharp = 0;
 }
 
 static void		ft_process_format(t_out *output, t_arg *ele)

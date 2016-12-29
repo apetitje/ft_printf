@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 15:32:22 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 13:01:39 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 13:46:06 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,4 @@ void			ft_itoa_base(unsigned long int nb, t_arg *ele, t_out *tmp)
 	num[i] = base_str[nb];
 	ele->len = 98 - i + 1;
 	ft_fill_out(tmp, num + i, ele->len);
-	free(base_str);
 }
