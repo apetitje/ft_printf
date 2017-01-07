@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:03:30 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/29 21:19:28 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 21:51:09 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int							ft_sqrt(int nb);
 void						ft_lstadd(t_list **alst, t_list *new);
 void						ft_itoa(long long int n, t_arg *ele, t_out *tmp);
 void						ft_dtoa(double n, int prec, t_arg *ele, t_out *tmp);
-void						ft_itoa_base(unsigned long int nb, t_arg *ele,
+void						ft_itoa_base(unsigned long long nb, t_arg *ele,
 								t_out *tmp);
 t_list						*ft_lstnew(void const *content,
 								size_t content_size);

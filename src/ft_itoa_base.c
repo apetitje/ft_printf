@@ -6,13 +6,13 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 15:32:22 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/29 13:46:06 by apetitje         ###   ########.fr       */
+/*   Updated: 2016/12/29 21:50:23 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			ft_itoa_base(unsigned long int nb, t_arg *ele, t_out *tmp)
+void			ft_itoa_base(unsigned long long nb, t_arg *ele, t_out *tmp)
 {
 	char			num[100];
 	int				i;
