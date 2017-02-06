@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:03:30 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/29 21:51:09 by apetitje         ###   ########.fr       */
+/*   Updated: 2017/02/06 19:00:04 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char						*ft_strjoinf(void *s1, void *s2,
 double						ft_pow(double pow, int nb);
 int							ft_wide_strlen(const wchar_t *s);
 char						*ft_strndup(const char *s1, size_t len);
-void						*ft_realloc(void *ptr, size_t size);
+void						*ft_realloc(void *ptr, size_t size, size_t old_size);
 int							ft_sqrt(int nb);
 void						ft_lstadd(t_list **alst, t_list *new);
 void						ft_itoa(long long int n, t_arg *ele, t_out *tmp);

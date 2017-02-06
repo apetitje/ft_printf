@@ -6,7 +6,7 @@
 /*   By: apetitje <apetitje@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:32:31 by apetitje          #+#    #+#             */
-/*   Updated: 2016/12/27 16:06:17 by apetitje         ###   ########.fr       */
+/*   Updated: 2017/02/06 18:59:26 by apetitje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_fill_out(t_out *out, const char *format, int len)
 		{
 			if (out->stocked)
 			{
-				if (!(out->out = ft_realloc(out->out, 1 + len + out->len)))
+				if (!(out->out = ft_realloc(out->out, 1 + len + out->len, out->len)))
 					exit(EXIT_FAILURE);
 			}
 			else
